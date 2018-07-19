@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define pb push_back
+#define mk make_pair
+#define fi first
+#define sec second
+#define MAXN 1000100
+
+typedef long long ll;
+
+ll dp[MAXN];
+ll pilha[MAXN][2];
+int n;
+
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin >> n;
+    
+    vector<int, int> caixasA;
+    vector<int, int> caixasB;
+    int caixas1, caixas2;
+
+    for(int i = 0; i < n; i++)
+    {
+        cin >> caixas1 >> caixas2;
+        caixas2 -= caixas1;
+        caixasA.pb(mk(caixas1,caixas2);
+    }
+   
+    memset(dp, 0, sizeof(dp));
+    
+    std::sort(caixasA.begin(), caixasA.end(), [](auto &left, auto &right)
+    {return left.second > right.second;});   
+    
+    /*
+    for(int i = 0; i < (int)caixasA.size(); i++)
+    {
+        cout << caixas[i].fi << " - " << caixas[i].sec << endl;
+    }*/
+
+    return 0;
+}
