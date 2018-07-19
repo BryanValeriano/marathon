@@ -12,7 +12,7 @@ const int INF = 0x3f3f3f3f;
 int magic_sort(vector<int> &row)
 {
     int inv = 0;
-    if(row.size() == 0) return 0;
+    if(row.size() == 1) return 0;
 
     vector<int>u1;
     vector<int>u2;
@@ -41,7 +41,7 @@ int magic_sort(vector<int> &row)
         {
             row[i] = u2[ini2];
             ini2++;
-            inv++;
+            inv += u1.size() - ini1 - 1;
         }
     }
     return inv;
