@@ -51,15 +51,3 @@ int main(){
     }
     return 0;
 }
-
-/*
-    for_(i, 0, 25){
-	cout <<"no[" <<i <<"]:\t{ ";
-	for_(j, 0, no[i].size()){
-	    cout <<no[i][j];
-	    if(j!=no[i].size()-1) cout <<", ";
-	}
-	cout <<" }" <<endl;
-    }
- */   
-  
