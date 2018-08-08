@@ -32,7 +32,6 @@ int main()
 
 bool gemeos(int row[], int TAM)
 {
-    
     int fim = TAM;
     int ini = 0;
     while(fim - ini > 1)
