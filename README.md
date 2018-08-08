@@ -6,6 +6,7 @@ Codes created in marathon training _http://maratona.ime.usp.br/_
 
 [UVa](https://uva.onlinejudge.org/)  
 [codeforces](http://codeforces.com/)  
+[codechef](https://www.codechef.com/)  
 [codcad](http://www.codcad.com)  
 [roteiros UFMG](http://wiki.maratona.dcc.ufmg.br/index.php/Roteiros)  
 [hackerrank](https://www.hackerrank.com/)  
