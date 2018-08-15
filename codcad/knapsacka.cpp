@@ -24,8 +24,6 @@ ll bk(int resist, int pos) {
 	ll R = bk(resist - peso[pos], pos + 1) + valor[pos];
 	ll L = bk(resist, pos + 1);
 	
-	if(R > L && R > 0) track[pos] = pos;
-	else track[pos] = track[pos-1];
 	return dp[pos][resist] = max(R,L);
 }
 
