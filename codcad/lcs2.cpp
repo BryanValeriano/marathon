@@ -13,33 +13,31 @@ const int TAM = 1e3+3;
 int a[TAM];
 int dp[TAM][TAM];
 
-int lcs(int i, int last) {
-	if(i < 0) return 0;
-	if(a[i] < a[last]) return 1 + lcs(i, j - 1);
-	if(dp[i][last] != -1) return dp[i][j];
+int lcs(int atual, int iter) {
+	if(iter < 0 || atual < 0) return 1;
+	if(dp[atual][iter] != -1) return dp[atual][iter];
 	
-	int R = lcs(i - 1, last);
-	int L = lcs(i, j - last);
-
-	return dp[i][j] = max(R,L);
+	
+	int R = lcs(atual, iter - 1);
+	int L = 0;
+	if(a[atual] >= a[iter]) L = 1 + lcs(iter, iter-1);
+	return dp[atual][iter] = max(R,L);
 }
 
 int main() {
     ios::sync_with_stdio(false);
-	int tam1;
-	cin >> tam1;
+	int tam;
+	cin >> tam;
 	memset(dp, -1, sizeof dp);
 	
-	for(int i = 0; i < tam2; i++)
-		cin >> b[i];
+	for(int i = 0; i < tam; i++)
+		cin >> a[i];
 
-	int minimo = lcs(tam1-1);
-	cout << tam1 << endl;
-	/*for(int i = 0; i < tam1; i++) {
-		for(int j = 0; j < tam2; j++)
-			cout << dp[i][j] << " ";
-		cout << endl;
-	}*/
+	int melhor = 0;
+	for(int i = tam; i > 0; i--)
+		melhor = max(melhor, lcs(tam-i, tam- (i+1)));
+	cout << melhor << endl;
+	
     return 0;
 }
 
