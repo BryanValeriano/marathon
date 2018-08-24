@@ -38,7 +38,7 @@ int main() {
 	for(int i = 0; i < (n*2)-1; i += 2) {
 		if(row[i] != row[i+1]) {
 			int pos = find(i+1, row[i]);
-			trocas += troca(i, pos);
+			trocas += troca(i+1, pos);
 		}
 	}
 	cout << trocas << endl;
