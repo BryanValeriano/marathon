@@ -29,7 +29,7 @@ int main() {
 	int n, m, ini;
 	cin >> n >> m >> ini >> profun;
 	int cont = 0;
-	while(n && m && ini && profun) {
+	while(n) {
 		vector<int>graph[n+1];
 		int u, v;
 		for(int i = 0; i < m; i++) {
