@@ -41,13 +41,16 @@ int main() {
 		dfs(ini, 0, graph);
 		cout << "Teste " << ++cont << endl;
 		set<int>::iterator it;	
-		for(it = track.begin(); it != track.end(); it++)
-			cout << *it << " ";
+		set<int>::iterator it2;	
+		for(it = track.begin(); it != track.end(); it++) {
+			cout << *it;
+                        it2 = it; it2++; 
+                        if(it2 != track.end()) cout << " ";
+                }
 		cout << endl << endl;
 		track.clear();
 		cin >> n >> m >> ini >> profun;
 	}
-
     return 0;
 }
 
