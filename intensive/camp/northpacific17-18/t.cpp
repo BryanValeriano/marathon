@@ -81,21 +81,21 @@ int conta() {
 }
 
 int main(){
-    ios_base::sync_with_stdio(false);
+    //ios_base::sync_with_stdio(false);
     int n, m, k;
-    cin >> n >> m >> k;
+    scanf("%d %d %d", &n, &m, &k);//cin >> n >> m >> k;
     int comeco;
     cin >> comeco >> goal;
     int a, b, c, d;
     for(int i = 0; i < m; i++) {
-        cin >> a >> b >> c >> d;    
+        scanf("%d %d %d %d", &a, &b, &c, &d);//cin >> a >> b >> c >> d;    
         node tmp = constroi(b, c, d);   
         graph[a].pb(tmp);
     }
     pair<int,int>ind;
     ind = mk(1, k);
     dfs(comeco, ind);
-    cout << conta() << endl;   
+    printf("%d\n", conta());//cout << conta() << endl;   
     
     return 0;
 }

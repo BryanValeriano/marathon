@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define pb push_back
+#define mk make_pair
+#define fi first
+#define sec second
+
+typedef pair<int,int> pii;
+typedef long long ll;
+const int INF = 0x3f3f3f3f;
+const int TAM = 1005;
+int n;
+vector< pii > graph[TAM];
+int dist[TAM];
+int visitados[TAM];
+
+void dijkstra(int fonte) {
+	memset(dist, INF, sizeof dist);
+	dist[fonte] = 0;
+	priority_queue<pii, vector<pii>, greater<pii> > fila;
+	fila.push(pii(dist[fonte], fonte));
+
+	while(true) {
+		int davez = -1;
+		while(! fila.empty()) {
+			int tmp = fila.top().second;
+			fila.pop();
+			if(! visitados[tmp]) {
+				davez = tmp;
+				break;
+			}
+		}
+		if(davez == -1) break;
+		visitados[davez] = true;
+		for(int i = 0; i < graph[davez].size(); i++) {
+			int subdist = graph[davez][i].fi;
+			int vizinho = graph[davez][i].sec;
+			if(dist[vizinho] > dist[davez] + subdist) {
+				dist[vizinho] = dist[davez] + subdist;
+				fila.push(pii(dist[vizinho], vizinho));
+			}
+		}
+	}
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+	int m;
+	cin >> n >> m;
+	int u, v, tempo;
+	for(int i = 0; i < m; i++) {
+		cin >> u >> v >> tempo;
+		graph[u].pb(pii(tempo, v));
+		graph[v].pb(pii(tempo, u));
+	}
+	dijkstra(0);
+	cout << dist[n+1] << endl;
+    return 0;
+}
+

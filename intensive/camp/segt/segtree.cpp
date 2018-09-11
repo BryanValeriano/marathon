@@ -33,10 +33,12 @@ int query(int node, int i, int j, int a, int b) {
 void update(int node, int i, int j, int p, int val) {
     if(j < p or i > p) return;
     if(i >= p and j <= p) seg[node] + val; 
-    int meio = (i + j) >> 1;
-    update(2*node, i, meio, p, val);
-    update(2*node+1, meio+1, j, p, val);
-    seg[node] = seg[2*node] + seg[2*node + 1];
+	else {
+		int meio = (i + j) >> 1;
+		update(2*node, i, meio, p, val);
+		update(2*node+1, meio+1, j, p, val);
+		seg[node] = seg[2*node] + seg[2*node + 1];
+		}
 }*/ 
  
 int main()
