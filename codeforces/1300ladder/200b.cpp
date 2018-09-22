@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define pb push_back
+#define mk make_pair
+#define fi first
+#define sec second
+
+typedef long long ll;
+const int INF = 0x3f3f3f3f;
+
+int main() {
+    ios::sync_with_stdio(false);
+	int n; cin >> n;
+	double total = n*100;
+	double sum = 0;
+	int aux;
+	for(int i = 0; i < n; i++) {
+		cin >> aux;
+		sum += aux;
+	}
+	printf("%0.12lf\n", (sum/total)*100);
+	//cout << sum/total << endl;	
+
+    return 0;
+}
+
