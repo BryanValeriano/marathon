@@ -41,7 +41,8 @@ int main() {
 	aux[0] = aux[2] = 1;
 	aux[1] = aux[3] = 2;
 
-	cout << steve(0, 0) << endl;
+    steve(0,0);
+	cout << dp[0][0] << endl;
 
 	return 0;
 }

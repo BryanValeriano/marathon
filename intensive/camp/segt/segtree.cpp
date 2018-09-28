@@ -29,7 +29,7 @@ int query(int node, int i, int j, int a, int b) {
     int meio = (i + j) >> 1;
     return query(2*node, i, meio, a, b) + query(2*node+1, meio+1, j, a, b);
 }
-/*
+
 void update(int node, int i, int j, int p, int val) {
     if(j < p or i > p) return;
     if(i >= p and j <= p) seg[node] + val; 
@@ -39,7 +39,7 @@ void update(int node, int i, int j, int p, int val) {
 		update(2*node+1, meio+1, j, p, val);
 		seg[node] = seg[2*node] + seg[2*node + 1];
 		}
-}*/ 
+} 
  
 int main()
 {
