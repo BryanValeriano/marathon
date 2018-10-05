@@ -11,10 +11,15 @@ const int INF = 0x3f3f3f3f;
 
 int main() {
     ios::sync_with_stdio(false);
-    const int t = 100;
-    cout << t << endl;
-    for(int i = 0; i < t; i++) 
-        cout << t << " ";
+    int n; cin >> n;
+    bool flag = false;
+    while(n--) {
+        string s;
+        int a; int b;
+        cin >> s >> a >> b;
+        if(a >= 2400 and b > a) flag = true;
+    }
+    cout << (flag? "YES" : "NO") << endl;
     return 0;
 }
 
