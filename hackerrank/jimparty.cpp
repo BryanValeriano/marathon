@@ -1,101 +1,137 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
-vector<string> split_string(string);
+#define pb push_back
+#define mp make_pair
+#define fi first
+#define se second
 
-/*
- * Complete the lanParty function below.
- */
-vector<int> lanParty(vector<int> games, vector<vector<int>> wires, int m) {
-    /*
-     * Write your code here.
-     */
+typedef long long ll;
+const int INF = 0x3f3f3f3f;
+const int T = 1e5+3;
+int resp[T];
+int pai[T];
+int peso[T];
+int contaux[T];
+pair<int,int> qtdjogo[T];
+pair<int,int> mapjogo[T];
+int seg[4*T + 4];
+int amigos, jogos, fios;
 
+void build(int node, int i, int j) {
+    if(i == j) seg[node] = pai[i];
+    else {
+        int meio = (i + j) >> 1;
+        build(2*node, i, meio);
+        build(2*node + 1, meio + 1, j);
+        if(seg[2*node] == 0 or seg[2*node+1] == 0) seg[node] = 0;
+        else seg[node] = (seg[2*node] == seg[2*node+1]);
+    }
 }
 
-int main()
-{
-    ofstream fout(getenv("OUTPUT_PATH"));
-
-    string nmq_temp;
-    getline(cin, nmq_temp);
-
-    vector<string> nmq = split_string(nmq_temp);
-
-    int n = stoi(nmq[0]);
-
-    int m = stoi(nmq[1]);
-
-    int q = stoi(nmq[2]);
-
-    string games_temp_temp;
-    getline(cin, games_temp_temp);
-
-    vector<string> games_temp = split_string(games_temp_temp);
-
-    vector<int> games(n);
-
-    for (int games_itr = 0; games_itr < n; games_itr++) {
-        int games_item = stoi(games_temp[games_itr]);
-
-        games[games_itr] = games_item;
+int query(int node, int i, int j, int a, int b) {
+    if(i > b or j < a) return 0;
+    if(i >= a and j <= b) return seg[node];
+    else {
+        int meio = (i + j) >> 1;
+        query(2*node, i, meio, a, b);
+        query(2*node+1, meio+1, j, a, b);
+        if(seg[2*node] == 0 or seg[2*node+1] == 0) return 0;
+        else return (seg[2*node] == seg[2*node+1]);
     }
+}
 
-    vector<vector<int>> wires(q);
-    for (int wires_row_itr = 0; wires_row_itr < q; wires_row_itr++) {
-        wires[wires_row_itr].resize(2);
-
-        for (int wires_column_itr = 0; wires_column_itr < 2; wires_column_itr++) {
-            cin >> wires[wires_row_itr][wires_column_itr];
-        }
-
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+void update(int node, int i, int j, int a, int b, int val) {
+    if(i > b or j < a) return;
+    if(i >= a and j <= b) seg[node] = val;
+    else {
+        int meio = (i + j) >> 1;
+        update(2*node, i, meio, a, b, val);
+        update(2*node+1, meio+1, j, a, b, val);
+        if(seg[2*node] == 0 or seg[2*node+1] == 0) seg[node] = 0;
+        else seg[node] = (seg[2*node] == seg[2*node+1]);
     }
+}
 
-    vector<int> result = lanParty(games, wires, m);
-
-    for (int result_itr = 0; result_itr < result.size(); result_itr++) {
-        fout << result[result_itr];
-
-        if (result_itr != result.size() - 1) {
-            fout << "\n";
-        }
+int find(int x) {
+    if(pai[x] == x) return x;
+    else {
+        pai[x] = find(pai[x]);
+        update(1, 1, amigos, x, x, pai[x]);
+        return pai[x];
     }
+}
 
-    fout << "\n";
+void check(int x, int y, int xx, int yy, int fio) {
+    int jogoy = mapjogo[y].se;
+    int jogox = mapjogo[x].se;
+    if(query(1, 1, amigos, qtdjogo[jogoy].fi, qtdjogo[jogoy].se))
+       resp[yy] = fio; 
+    if(query(1, 1, amigos, qtdjogo[jogox].fi, qtdjogo[jogox].se))
+       resp[xx] = fio; 
+}
 
-    fout.close();
+void join(int x, int y, int xx, int yy, int fio) {
+    int tx = x;
+    int ty = x;
+    x = find(x);
+    y = find(y);
 
+    if(pai[x] == y or pai[y] == x) return;
+
+    if(peso[x] >= peso[y]) {
+        pai[y] = x;
+        find(ty);
+        //update(1, 1, amigos, y, y, x); 
+        check(x,y,xx,yy,fio);
+    }
+    else if(peso[y] >= peso[x]) {
+        pai[x] = y;
+        find(tx);
+        //update(1, 1, amigos, x, x, y);
+        check(x,y,xx,yy,fio);
+    } 
+    else {
+        pai[y] = x;
+        peso[x]++;
+        find(ty);
+        //update(1, 1, amigos, y, y, x);
+        check(x,y,xx,yy,fio);
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin >> amigos >> jogos >> fios;
+    for(int i = 1; i <= amigos; i++)
+        pai[i] = i;
+    build(1, 1, amigos);
+    int aux;
+    for(int i = 1; i <= amigos; i++) {
+        cin >> aux;
+        mapjogo[i].se = aux;
+        qtdjogo[aux].se++;
+    }
+    qtdjogo[1].fi = 1;
+    for(int i = 2; i <= jogos; i++) {
+        qtdjogo[i].fi = qtdjogo[i-1].se + 1;
+        qtdjogo[i].se += qtdjogo[i].se - 1;
+        if(qtdjogo[i].fi == qtdjogo[i].se) resp[i] = 0;
+    }
+    for(int i = 1; i <= amigos; i++) {
+        int jogo = mapjogo[i].se;
+        mapjogo[i].fi = qtdjogo[jogo].fi + contaux[jogo];
+        contaux[jogo]++;
+    }
+    for(int i = 1; i <= fios; i++) {
+        int aa, bb;
+        cin >> aa >> bb;
+        int a = mapjogo[a].fi;
+        int b = mapjogo[b].fi;
+        join(a,b,aa,bb,i);
+
+    }
+    for(int i = 1; i <= jogos; i++) cout << resp[i] << endl;
     return 0;
-}
-
-vector<string> split_string(string input_string) {
-    string::iterator new_end = unique(input_string.begin(), input_string.end(), [] (const char &x, const char &y) {
-        return x == y and x == ' ';
-    });
-
-    input_string.erase(new_end, input_string.end());
-
-    while (input_string[input_string.length() - 1] == ' ') {
-        input_string.pop_back();
-    }
-
-    vector<string> splits;
-    char delimiter = ' ';
-
-    size_t i = 0;
-    size_t pos = input_string.find(delimiter);
-
-    while (pos != string::npos) {
-        splits.push_back(input_string.substr(i, pos - i));
-
-        i = pos + 1;
-        pos = input_string.find(delimiter, i);
-    }
-
-    splits.push_back(input_string.substr(i, min(pos, input_string.length()) - i + 1));
-
-    return splits;
 }
 
