@@ -11,11 +11,13 @@ const int INF = 0x3f3f3f3f;
 
 int main()
 {
-    cout << 1 << endl << 50 << endl;
-    cout << 47 << " ";
-    for(int i = 2; i <= 50; i++) 
-        cout << 2 << " ";
-    cout << endl;
+    cout << 1 << endl << 300 << " " << 300 << endl;
+    for(int i = 1; i <= 300; i++) {
+        for(int j = 1; j <= 300; j++) {
+            cout << 1 << " ";
+        }
+        cout << endl;
+    }
     return 0;
 }
 
