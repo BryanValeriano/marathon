@@ -8,9 +8,12 @@ using namespace std;
 #define se second
 
 typedef pair<int,int> ii;
+typedef vector< pair<int,int> >vii[1010];
 typedef long long ll;
 const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
+ll cont = 0;
+vii ind;
 
 struct state {
     int v[2][4];
@@ -19,10 +22,11 @@ struct state {
 
     void read() {
         for(int i = 0; i < 2; i++)
-            for(int j = 0; j < 4; j++)
+            for(int j = 0; j < 4; j++) {
                 cin >> v[i][j];
+                ind[v[i][j]].eb(i,j); 
+            }
     }
-
     bool operator < (const state &b) const {
         for(int i = 0; i < 2; i++) 
             for(int j = 0; j < 4; j++) 
@@ -37,12 +41,14 @@ struct state {
         return true;
     }
 
-/*  void operator = (const state &b) {
+    bool operator == (const state &b) {
+        int tmp = 0;
         for(int i = 0; i < 2; i++) 
             for(int j = 0; j < 4; j++) 
-                v[i][j] = b.v[i][j];
+                if(v[i][j] == b.v[i][j]) tmp++;
+        return (tmp == 8);
     }
-*/
+
     void print() {
         for(int i = 0; i < 2; i++) {
             for(int j = 0; j < 4; j++)
@@ -50,7 +56,41 @@ struct state {
             cout << endl;
         }
     }
+
+    int dist() {
+        int sum = 0;
+        for(int i = 0; i < 2; i++) {
+            for(int j = 0; j < 4; j++) {
+                if(ind[v[i][j]].size() == 2) {
+                    ii tmp = ind[v[i][j]][1];
+                    int manhatam = (abs(i - tmp.fi) + abs(j - tmp.se)); 
+                    sum += manhatam * v[i][j];
+                }
+            }
+        }
+        return sum;
+    }
+                    
+
 } beg, last; 
+
+struct node {
+    state a;
+    int d;
+    ll aStar;
+
+    node (state a, int d, int aStar) :
+        a(a), d(d), aStar(aStar) {}
+
+    bool operator < (const node &b) const {
+        return d + aStar < b.d + b.aStar;
+        return false;
+    }
+    bool operator > (const node &b) const {
+        return d + aStar > b.d + b.aStar;
+        return false;
+    }
+};
 
 int dir[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
 
@@ -59,15 +99,16 @@ bool pode(int i, int j) {
 }
 
 int go() {
-    map<state, int> dist;
-    priority_queue<pair<int, state>, vector<pair<int, state> >, greater<pair<int,state> > >pq;
+    map<state, ll> dist;
+    priority_queue<node, vector<node>, greater<node> >pq;
 
     dist[beg] = 0;
-    pq.push(mk(0, beg));
+    pq.push(node(beg, 0LL, beg.dist()));
 
     while(pq.size()) {
-        state at = pq.top().se;
-        int d = pq.top().fi;
+        state at = pq.top().a;
+        int d = pq.top().d;
+        int aStar = pq.top().aStar;
         pq.pop();
 
         if(at == last) 
@@ -88,11 +129,13 @@ int go() {
 /*                  next.print();
                     cout << endl;
 */
-                    int peso = next.v[i][j] + next.v[ii][jj];
+                    int realD = next.v[i][j] + next.v[ii][jj];
+                    ll peso = next.dist();
+                    
 
-                    if(!dist.count(next) or dist[next] > d + peso) {
-                        dist[next] = d + peso;
-                        pq.emplace(d+peso, next);
+                    if(!dist.count(next) or dist[next] > d + peso + realD) {
+                        dist[next] = d + peso + realD;
+                        pq.push(node(next, d + realD, peso));
                     }
                 }
             }
@@ -105,7 +148,6 @@ int go() {
  
 int main(){
     ios_base::sync_with_stdio(false);
-
     beg.read();
     last.read();
 
