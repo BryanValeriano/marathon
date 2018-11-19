@@ -51,18 +51,17 @@ bool cmp(const pair<int,int>&a, const pair<int,int>&b) {
 }
 
 int main() {
-    //ios::sync_with_stdio(false);
-	int n; scanf("%d", &n); //cin >> n
+	int n; scanf("%d", &n); 
 	int val;
 	vector<node>row;
 	for(int i = 0; i < n; i++) {
-		scanf("%d", &val);; //cin >> val;
+		scanf("%d", &val);
 		row.pb(node(0, val, 0, 0, 0, i+1));
 	}
 	int q; cin >> q;
 	int a, b, k;
 	for(int i = 0; i < q; i++) {
-		scanf("%d %d %d", &a, &b, &k);//cin >> a >> b >> k;
+		scanf("%d %d %d", &a, &b, &k);
 		row.pb(node(1, k, a, b, i, 0));
 	}
 	sort(row.begin(), row.end());
@@ -79,7 +78,7 @@ int main() {
 
 	sort(querys.begin(), querys.end(), cmp);
 	for(auto id : querys) 
-		printf("%d\n", id.sec); //cout << querys[i].sec << endl;
+		printf("%d\n", id.sec);
     return 0;
 }
 
