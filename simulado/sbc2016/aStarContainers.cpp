@@ -12,7 +12,6 @@ typedef vector< pair<int,int> >vii[1010];
 typedef long long ll;
 const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
-ll cont = 0;
 vii ind;
 
 struct state {
@@ -27,6 +26,7 @@ struct state {
                 ind[v[i][j]].eb(i,j); 
             }
     }
+
     bool operator < (const state &b) const {
         for(int i = 0; i < 2; i++) 
             for(int j = 0; j < 4; j++) 
@@ -39,22 +39,6 @@ struct state {
         if((*this) < b) return false;
         if(b < (*this)) return false;
         return true;
-    }
-
-    bool operator == (const state &b) {
-        int tmp = 0;
-        for(int i = 0; i < 2; i++) 
-            for(int j = 0; j < 4; j++) 
-                if(v[i][j] == b.v[i][j]) tmp++;
-        return (tmp == 8);
-    }
-
-    void print() {
-        for(int i = 0; i < 2; i++) {
-            for(int j = 0; j < 4; j++)
-                cout << v[i][j] << " ";
-            cout << endl;
-        }
     }
 
     int dist() {
@@ -76,18 +60,15 @@ struct state {
 
 struct node {
     state a;
-    int d;
+    int realD;
     ll aStar;
 
-    node (state a, int d, int aStar) :
-        a(a), d(d), aStar(aStar) {}
+    node (state a, int realD, int aStar) :
+        a(a), realD(realD), aStar(aStar) {}
 
-    bool operator < (const node &b) const {
-        return d + aStar < b.d + b.aStar;
-        return false;
-    }
+    
     bool operator > (const node &b) const {
-        return d + aStar > b.d + b.aStar;
+        return realD+ aStar > b.realD + b.aStar;
         return false;
     }
 };
@@ -107,7 +88,7 @@ int go() {
 
     while(pq.size()) {
         state at = pq.top().a;
-        int d = pq.top().d;
+        int d = pq.top().realD;
         int aStar = pq.top().aStar;
         pq.pop();
 
@@ -126,9 +107,6 @@ int go() {
 
                     swap(next.v[i][j], next.v[ii][jj]);
 
-/*                  next.print();
-                    cout << endl;
-*/
                     int realD = next.v[i][j] + next.v[ii][jj];
                     ll peso = next.dist();
                     
@@ -140,9 +118,7 @@ int go() {
                 }
             }
         }
-//      exit(0);
     }
-
     return INF;
 }
  

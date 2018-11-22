@@ -67,10 +67,6 @@ struct node {
     node (state a, int d, int aStar) :
         a(a), d(d), aStar(aStar) {}
 
-    bool operator < (const node &b) const {
-        return d + aStar < b.d + b.aStar;
-        return false;
-    }
     bool operator > (const node &b) const {
         return d + aStar > b.d + b.aStar;
         return false;
