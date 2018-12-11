@@ -11,46 +11,17 @@ typedef long long ll;
 typedef pair<int,int> ii;
 typedef vector< pair<int,int> > vii;
 const int INF = 0x3f3f3f3f;
-const int T = 1e5 + 100;
+const int T = 1e5 + 20;
 const int LOG = 20;
+int t;
 int n, m;
 int pai[T];
 int nivel[T];
+int in[T];
+int out[T];
 int ancestral[T][LOG];
-int ans[T];
-bool vis[T];
-set< pair<int,int> >querys[T];
-set<int> glob[T];
 vector<int> g[T];
-
-void dfs2(int u) {
-    vis[u] = true;
-    int niv = nivel[u];
-    auto it = glob[niv].begin();
-    while(it != glob[niv].end()) {
-        ans[*it]++;
-        it++;
-    }
-    if(querys[u].size())
-        for(set< pair<int,int> >::iterator it = querys[u].begin(); it != querys[u].end(); it++) 
-            glob[it->fi].insert(it->se);
-    for(int i = 0; i < g[u].size(); i++) {
-        int v = g[u][i];
-        if(!vis[v]) dfs2(v);
-    }
-    if(querys[u].size())
-        for(set< pair<int,int> >::iterator it = querys[u].begin(); it != querys[u].end(); it++) 
-            glob[it->fi].erase(it->se);
-
-}
-
-void solve() {
-    for(int i = 1; i <= n; i++)
-        if(!vis[i]) dfs2(i);
-    for(int i = 0; i < m; i++) 
-        printf("%d ", ans[i]-1);
-    printf("\n");
-}
+vector<int> depth[T];
 
 int kth(int u, int niv) {
     niv = nivel[u] - niv;
@@ -66,26 +37,32 @@ void query() {
     for(int i = 0; i < m; i++) {
         cin >> u >> niv;
         int anc = kth(u,niv);
-        if(anc > 0) querys[anc].insert(mk(nivel[u],i));
-        else ans[i] = 1;
-    }
-}
-
-void dfs1(int u) {
-    for(int i = 0; i < g[u].size(); i++) {
-        int v = g[u][i];
-        if(nivel[v] == -1) {
-            nivel[v] = nivel[u] + 1;
-            dfs1(v);
+        if(anc < 0) cout << 0 << " "; 
+        else {
+            int l = upper_bound(depth[nivel[u]].begin(), depth[nivel[u]].end(), in[anc]) - depth[nivel[u]].begin();
+            int r = upper_bound(depth[nivel[u]].begin(), depth[nivel[u]].end(), out[anc]) - depth[nivel[u]].begin();
+            cout << max(0, r-l-1) << " ";
         }
     }
+    cout << endl;
+}
+
+void dfs(int u) {
+    in[u] = ++t;
+    depth[nivel[u]].pb(in[u]);
+    for(int i = 0; i < g[u].size(); i++) {
+        int v = g[u][i];
+        nivel[v] = nivel[u] + 1;
+        dfs(v);
+    }
+    out[u] = ++t;
 }
 
 void build() {
     memset(nivel, -1, sizeof nivel);
     memset(ancestral, -1, sizeof ancestral);
     for(int i = 1; i <= n; i++) 
-        if(nivel[i] == -1) { nivel[i] = 0; dfs1(i); }
+        if(nivel[i] == -1) { nivel[i] = 0; dfs(i); }
     for(int i = 1; i <= n; i++) ancestral[i][0] = pai[i];
     for(int j = 1; j < LOG; j++)
         for(int i = 1; i <= n; i++) 
@@ -96,15 +73,17 @@ void read() {
     cin >> n;
     memset(pai, -1, sizeof pai);
     for(int i = 1; i <= n; i++) {
-        scanf("%d", &pai[i]);
+        cin >> pai[i];
         g[pai[i]].pb(i);
     }
 }
 
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
     read();
     build();
     query();
-    solve();
     return 0;
 }
