@@ -1,10 +1,10 @@
-11069 //DP related to Combinatorics
+11069 //DP related to Combinatorics *
 11094 //Flood Fill
-11492 //Dijkstra, montar grafo de palvras e nao idiomas. Palavra pode ser uma string igual ao idioma
-10042
-11264
-11221
-193
+11492 //Dijkstra, montar grafo de palvras e nao idiomas. Palavra pode ser uma string igual ao idioma *
+10042 //Crivo, Fatoracao, isPrime, bruteForce
+11264 //Gredy com safadeza
+11221 //Palindrome AdHoc Implementation
+193   //Brute force, Weak tests case
 11695
 11517
 11284
