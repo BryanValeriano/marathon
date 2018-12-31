@@ -7,8 +7,6 @@ using namespace std;
 #define sec second
 
 typedef long long ll;
- 
-
 
 bool isdif(int x, int y)
 {

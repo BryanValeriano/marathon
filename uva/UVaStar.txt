@@ -5,7 +5,7 @@
 11264 //Gredy com safadeza
 11221 //Palindrome AdHoc Implementation
 193   //Brute force, Weak tests case
-11695
+11695 nao consegui
 11517
 11284
 793

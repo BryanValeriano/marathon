@@ -31,7 +31,7 @@ int lca(int u, int v) {
     if(nivel[u] < nivel[v]) swap(u,v);
 
     for(int i = LOG-1; i >= 0; i--)
-        if(u - (1<<i) >= nivel[v]) u = ancestral[u][i];
+        if(nivel[u] - (1<<i) >= nivel[v]) u = ancestral[u][i];
 
     if(u == v) return u;
 
@@ -49,9 +49,6 @@ void query() {
     while(q--) {
         cin >> u >> v;
         cout << min( { peso[u] + peso[v] - 2*peso[lca(u,v)], dist[0][u] + dist[0][v], dist[1][u] + dist[1][v] } ) << endl;
-        //cout << "1: " << peso[u] + peso[v] - 2*peso[lca(u,v)] << endl;
-        //cout << "2: " << dist[0][u] + dist[0][v] << endl;
-        //cout << "3: " << dist[1][u] + dist[1][v] << endl;
     }
 }
 

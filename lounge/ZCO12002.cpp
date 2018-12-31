@@ -4,83 +4,52 @@ using namespace std;
 #define pb push_back
 #define mk make_pair
 #define fi first
-#define sec second
+#define se second
+#define eb emplace_back
 
 typedef long long ll;
- 
-int main(){
-    ios_base::sync_with_stdio(false);
+typedef pair<int,int> ii;
+typedef vector< pair<int,int> > vii;
+const int INF = 0x3f3f3f3f;
+const int T = 1e5 + 10;
+int beg[T];
+int acaba[T];
+vector<int> ida;
+vector<int> volta;
+int n, x, y;
+int mini = INF;
 
-    int n, x, y, aux1, aux2, l, r, sinal, m;
-    cin >> n >> x >> y;
-
-    pair<int,int> contests[n];
-    pair<int,int> hor[n];
-    int V[x];
-    int W[y];
-
-    for(int i = 0; i < n; i++)
-    {
-        cin >> aux1 >> aux2;
-        contests[i] = mk(aux1,aux2);
+void solve() {
+    for(int i = 0; i < n; i++) {
+        int start = lower_bound(ida.begin(), ida.end(), beg[i]) - ida.begin();
+        int fim = lower_bound(volta.begin(), volta.end(), acaba[i]) - volta.begin();
+        if(start >= x) start--;
+        while(ida[start] > beg[i] and start > 0) start--;
+        if(fim >= y) continue;
+        start = ida[start];
+        fim = volta[fim];
+        if(start > beg[i] or fim < acaba[i]) continue;
+        mini = min(mini, fim - start + 1);
     }
-    
-    for(int i = 0; i < x; i++)
-        cin >> V[i];
-    
-    for(int i = 0; i < y; i++)
-        cin >> W[i];
-    
-    sort(V, V + x);
-    sort(W, W + y);
-    
+}
+
+void read() {
+    cin >> n >> x >> y;
+    int aux;
     for(int i = 0; i < n; i++)
-    {
-        l = 0, r = x;
-        sinal = 0;
+        cin >> beg[i] >> acaba[i];
+    for(int i = 0; i < x; i++) { cin >> aux; ida.pb(aux); }
+    for(int i = 0; i < y; i++) { cin >> aux; volta.pb(aux); }
 
-        while(r - l > 1)
-        {
-            m = (l + r) / 2;
+    sort(ida.begin(), ida.end());
+    sort(volta.begin(), volta.end());
+}
 
-            if(V[m] == contests[i].first)
-            {
-                hor[i].first = V[m];
-                sinal = 1;
-                break;
-            }
-            else if(V[m] > contests[i].first) l = m;
-            else r = m;
-        }
-        if(sinal != 1)  hor[i].first = V[r];
-        cout << "l eh: " << l << endl;
-        cout << "r eh: " << r << endl;
-        
-        sinal = 0;
-        l = 0, r = y;
-        while(r - l > 1)
-        {
-            m = (l + r) / 2;
-
-            if(V[m] == contests[i].second)
-            {
-                hor[i].second = W[m];
-                sinal = 1;
-                break;
-            }
-            else if(W[m] > contests[i].second) l = m;
-            else r = m;
-        }
-        if(sinal != 1)  hor[i].second = W[r];
-    } 
-
-    for(int i = 0; i < n; i++)
-        cout << hor[i].first << ", " << hor[i].second << " ";
-
-    cout << endl;
-
-
-
+int main() {
+    ios::sync_with_stdio(false);
+    read();
+    solve();
+    cout << mini << endl;
     return 0;
 }
 
