@@ -11,12 +11,20 @@ typedef long long ll;
 typedef pair<int,int> ii;
 typedef vector< pair<int,int> > vii;
 const int INF = 0x3f3f3f3f;
+const int n = 18;
+int freq[500];
 
 int main() {
     ios::sync_with_stdio(false);
-    int a; cin >> a;
-    if(a <= 3) cout << "NO" << endl;
-    else cout << (a&1? "NO" : "YES") << endl;
+    cout << n << endl;
+    for(int i = 0; i < n*n; i++) {
+        cout << (i%9)+1 << " ";
+        freq[(i%9)+1]++;
+    }
+
+    cout << endl;
+    //for(int i = 1; i <= 9; i++) cout << i << " " << freq[i] << endl;
+
     return 0;
 }
 

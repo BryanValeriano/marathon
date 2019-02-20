@@ -14,9 +14,10 @@ const int INF = 0x3f3f3f3f;
 
 int main() {
     ios::sync_with_stdio(false);
-    int a; cin >> a;
-    if(a <= 3) cout << "NO" << endl;
-    else cout << (a&1? "NO" : "YES") << endl;
+    double a,b,c,d,e;
+    cin >> a >> b >> c  >> d >> e;
+    cout << fixed << setprecision(1) << (a+b+c+d+e) - max({a,b,c,d,e}) - min({a,b,c,d,e}) << endl;
+
     return 0;
 }
 

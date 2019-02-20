@@ -14,9 +14,9 @@ const int INF = 0x3f3f3f3f;
 
 int main() {
     ios::sync_with_stdio(false);
-    int a; cin >> a;
-    if(a <= 3) cout << "NO" << endl;
-    else cout << (a&1? "NO" : "YES") << endl;
+    int a,b,c,d;
+    cin >> a >> b >> c >> d;
+    cout << (a+b+c+d)-3 << endl;
     return 0;
 }
 

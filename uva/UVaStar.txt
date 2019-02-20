@@ -6,11 +6,11 @@
 11221 //Palindrome AdHoc Implementation
 193   //Brute force, Weak tests case
 11695 nao consegui
-11517
-11284
-793
-10107
-11057
+11517 //soh passa bottom up
+11284 //TSP, entrada double mult por 100, ans/=100
+793   //Union-Find, input chato
+10107 //nth_element()
+11057 //binary search - ou map pra facilitar
 403
 11849
 452

@@ -14,9 +14,18 @@ const int INF = 0x3f3f3f3f;
 
 int main() {
     ios::sync_with_stdio(false);
-    int a; cin >> a;
-    if(a <= 3) cout << "NO" << endl;
-    else cout << (a&1? "NO" : "YES") << endl;
+    int tc; cin >> tc;
+    while(tc--) {
+        ll n,a,b;
+        cin >> n >> a >> b;
+        ll ans = 0;
+        if(a <= (double)b/2) ans = a*n;
+        else {
+            ans = n/2 * b;
+            if(n & 1) ans += a;
+        }
+        cout << ans << endl;
+    }
     return 0;
 }
 
