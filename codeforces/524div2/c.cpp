@@ -53,9 +53,16 @@ int main() {
         if(X4-X3 == Y4-Y3 and abs(X4-Y4)&1 and (X4-X3+1)&1) white.fi--;
         if(X4-X3 == Y4-Y3 and (! abs(X4-Y4)&1) and (X4-X3+1)&1) white.se--;
 
-        cout << (tot.fi + white.se) - black.fi << " ";
-        cout << (tot.se + black.se) - white.se << endl;
-        cout << tot.fi << " " << tot.se << " | " << white.fi << " " << white.se << " | " << black.fi << " " << black.se << endl;
+        ll b =(tot.fi + white.se) - black.fi;
+        ll w = (tot.se + black.se) - white.se; 
+
+        if(max(X1,X3) > min(X2, X4) or max(Y1,Y3) > min(Y2,Y4)) continue;
+        else {
+            pair<ll,ll> ans = qtd(min(
+
+        //cout << (tot.fi + white.se) - black.fi << " ";
+        //cout << (tot.se + black.se) - white.se << endl;
+        //cout << tot.fi << " " << tot.se << " | " << white.fi << " " << white.se << " | " << black.fi << " " << black.se << endl;
     }
         
 
