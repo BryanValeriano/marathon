@@ -16,10 +16,9 @@ const int n = 3e5;
 
 int main() {
     ios::sync_with_stdio(false);
-    cout << n << endl;
-    int x = 1e7 + 1;
-    int y = 1e6;
-    for(int i = 0; i < n; i++) cout << ((y + i) % x) << " ";
+    int x = -1;
+    bitset<32> ans(x);
+    cout << ans << endl;
     cout << endl;
     return 0;
 }

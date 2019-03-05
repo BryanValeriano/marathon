@@ -13,10 +13,12 @@ typedef vector< pair<int,int> > vii;
 const int INF = 0x3f3f3f3f;
 
 const int T = 5e3 + 100;
+const int S = 3e5 + 10;
 const int N = 1e7 + 5e6 + 10;
 bitset<T> crivo;
 int cont[N];
 vector<int> primes;
+int v[S];
 
 void gen() {
     for(int i = 2; i < T; i++) {
@@ -29,34 +31,30 @@ void gen() {
 
 void decop(int x) {
     int i = 0;
-    cont[x]++;
     while(i < primes.size() and primes[i] * primes[i] <= x) {
-        if(x % primes[i] == 0 and x != primes[i])  cont[primes[i]]++;
+        if(x % primes[i] == 0)  cont[primes[i]]++;
         while(x % primes[i] == 0) { 
             x /= primes[i];
-            if(x != primes[i]) cont[x]++;
         }
         i++;
     }
+    if(x > 1) cont[x]++;
 }
 
 int main() {
     int n; scanf("%d", &n);
     int x;
     gen();
-
+    int gcd = 0;
     for(int i = 0; i < n; i++) {
-        scanf("%d", &x);
-        decop(x);
+        scanf("%d", &v[i]);
+        gcd = __gcd(gcd, v[i]);
     }
+    for(int i = 0; i < n; i++) decop(v[i]/gcd);
 
     int maxi = 0;
-    int best = 0;
 
-    //for(int i = 0; i < N; i++) if(cont[i] == n and i > best) best = i; 
-
-    for(int i = 0; i < N; i++) 
-        if(cont[i] < n and cont[i] > maxi and i > best) maxi = cont[i];
+    for(int i = 2; i < N; i++) if(cont[i] > maxi) maxi = cont[i];
 
     printf("%d\n", maxi != 0? n-maxi : -1); 
     return 0;
