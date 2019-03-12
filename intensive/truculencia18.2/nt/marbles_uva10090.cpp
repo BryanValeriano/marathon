@@ -59,7 +59,6 @@ int main() {
         ll b = y - n1*passo/d;
         ans1 = a*c1 + b*c2;
         if(a < 0 or b < 0) ans1 = INF;
-        
 
         ll ans2;
         passo = d*x/n2;
