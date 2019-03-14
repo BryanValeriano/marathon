@@ -27,6 +27,7 @@ void test(int i, int j, int k) {
     int pos = k/m;
     if(k % m != 0) pos++;
     int kth = *(s.find_by_order(pos-1));
+    cout << i << " " << j << " " << k << " | " << pos << " " << kth << endl;
     if(aparece[aparece[kth]]) {
         ans++;
     }
