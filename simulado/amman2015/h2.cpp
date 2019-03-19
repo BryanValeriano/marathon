@@ -37,7 +37,7 @@ void dfs(int u, int p) {
     tin[u] = low[u] = ++t;
     vis[u] = vez;
     for(int v : g[u]) {
-        if(vis[v] != vez and v != p) {
+        if(vis[v] != vez /* and v != p*/) {
             dfs(v,u);
             if(low[v] > tin[u]) { 
                 if(u < v) pontes.emplace(u,v);
