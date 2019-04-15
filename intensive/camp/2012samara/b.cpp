@@ -29,6 +29,7 @@ int main (void) {
         int pilha; cin >> pilha;
         ans = ans ^ g[pilha];
     }
+    
     printf("%s\n", ans ? "Constantine" : "Mike");
     return 0;
 }
