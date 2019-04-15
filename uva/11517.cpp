@@ -8,7 +8,6 @@ const int T = 102;
 const int N = 1e4 + 2;
 int v[T];
 int gol, n;
-
 int dp[3*N];
 
 inline int solve(int i, int tot, int qtd) {
@@ -24,17 +23,16 @@ inline int solve(int i, int tot, int qtd) {
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
-    int tc; cin >> tc;
+    int tc; 
+    scanf("%d", &tc);
     while(tc--) {
-        cin >> gol >> n;
+        scanf("%d %d", &gol, &n);
         memset(dp, INF, sizeof dp);
         for(int i = 0; i < n; i++) cin >> v[i];
         sort(v, v+n, greater<int>());
         solve(0, 0, 0);
         for(int i = gol; i < 3*N; i++) 
-            if(dp[i] != INF) { cout << i << " " << dp[i] << endl; break; }
+            if(dp[i] != INF) { printf("%d %d\n", i, dp[i]); break; }
     }
     return 0;
 }
