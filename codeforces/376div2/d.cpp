@@ -29,26 +29,27 @@ int main() {
         }
     }
     
-    int gol = n-1;
+    int gol = 0;
 
     for(int i = 1; i < n; i++) { 
         bool flag = false;
         for(int j = 0; j < min(g[i].size(), g[i-1].size()); j++) {
             if(g[i][j] != g[i-1][j]) {
                 flag = true;
-                if(g[i-1] < g[i]) circle[0]++, circle[c-g[i][j]+1]--;
+                if(g[i-1] < g[i]) circle[0]++, circle[c-g[i][j]+1]--, circle[c-g[i-1][j]+1]++, circle[c]--;
                 else circle[c-g[i-1][j]+1]++, circle[c-g[i][j]+1]--;
+                gol++;
                 break;
             }
-            if(!flag and g[i-1].size() <= g[i].size()) flag = true, gol--;
         }
+        if(!flag and g[i-1].size() <= g[i].size()) flag = true;
         if(!flag) { cout << -1 << endl; return 0; }
     }
 
     int ans = 0;
-    for(int i = 0; i <= c+1; i++) {
+    for(int i = 0; i < c; i++) {
         ans += circle[i];
-        if(ans == gol) { cout << i << endl; return 0; }
+        if(ans >= gol) { cout << i << endl; return 0; }
     }
     
     cout << -1 << endl;
