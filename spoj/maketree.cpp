@@ -18,9 +18,8 @@ int pai[T];
 vector<int> g[T];
  
 int main() {
-    ios_base::sync_with_stdio(false);
     int n,m;
-    cin >> n >> m;
+    scanf("%d %d", &n, &m);
 
     for(int i = 1; i <= m; i++) {
         int k; cin >> k;
@@ -37,23 +36,21 @@ int main() {
   
     pai[bag.front()] = 0;
     int raiz = bag.front();
-    int last = raiz;
+    int last = 0;
 
     while(!bag.empty()) {
         int u = bag.front(); 
         bag.pop();
-        if(pai[u] == 0 and u != raiz) pai[u] = last;
+        pai[u] = last;
+        last = u;
         for(auto v : g[u]) {
             in[v]--;
-            if(!in[v]) {
-                pai[v] = last;
+            if(!in[v]) 
                 bag.push(v);
-                last = v;
-            }
         }
     }
 
-    for(int i = 1; i <= n; i++) cout << pai[i] << endl;;
+    for(int i = 1; i <= n; i++) printf("%d\n", pai[i]); 
 
     return 0;
 }
