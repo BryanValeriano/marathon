@@ -12,23 +12,24 @@ typedef pair<int,int> ii;
 typedef vector< pair<int,int> > vii;
 const int INF = 0x3f3f3f3f;
 
-vector<ll> v;
+const int T = 110;
+int v[T];
 
 int main() {
     ios::sync_with_stdio(false);
-    ll n,a,b; cin >> n;
-    ll ans = 0;
-    for(int i = 0; i < n; i++) { 
-        cin >> a >> b;
-        ans += b*n - a;
-        v.pb(a-b);
+    int x;
+    int sum = 0;
+
+    for(int i = 0; i < 5; i++) cin >> x, v[x]++, sum += x;
+
+    int ans = 0;
+
+    for(int i = 100; i >= 0; i--) {
+        if(v[i] >= 3) ans = max(ans, i*3);
+        if(v[i] >= 2) ans = max(ans, i*2);
     }
-
-    sort(v.begin(), v.end(), greater<int>());
-    for(ll i = 0; i < n; i++)
-        ans += v[i]*(i+1);
-
-    cout << ans << endl;
+        
+    cout << sum - ans << endl;
 
     return 0;
 }
