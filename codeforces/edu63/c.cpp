@@ -1,0 +1,1198 @@
+ By BryanValeriano, contest: Educational Codeforces Round 63 (Rated for Div. 2), problem: (C) Alarm Clocks Everywhere, Accepted, #
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define pb push_back
+#define mk make_pair
+#define fi first
+#define se second
+#define eb emplace_back
+#define endl '\n'
+
+typedef long long ll;
+typedef pair<int,int> ii;
+typedef vector< pair<int,int> > vii;
+const int INF = 0x3f3f3f3f;
+
+const int T = 3e5 + 10;
+ll v[T];
+ll ve[T];
+
+int main() {
+    ios_base::sync_with_stdio(false);
+	int n, m;
+	cin >> n >> m;
+	for(int i = 0; i < n; i++) cin >> v[i];
+	for(int i = 0; i < m; i++) cin >> ve[i];
+
+	ll gcd = 0;
+	for(int i = 1; i < n; i++) gcd = __gcd(gcd, v[i] - v[i-1]);
+	for(int i = 0; i < m; i++) {
+		if(gcd % ve[i] == 0) {
+			cout << "YES" << endl <<  v[0] << " " << i+1 << endl;
+			return 0;
+		}
+	}
+
+	cout << "NO" << endl;
+    
+    
+    return 0;
+}
+
+→Judgement Protocol
+Test: #1, time: 31 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+3 5
+
+3 12 18
+
+2 6 5 3 3
+
+Output
+
+YES
+
+3 4
+
+Answer
+
+YES
+
+3 4
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #2, time: 15 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+4 2
+
+1 5 17 19
+
+4 5
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #3, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+4 2
+
+1 5 17 19
+
+2 1
+
+Output
+
+YES
+
+1 1
+
+Answer
+
+YES
+
+1 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #4, time: 202 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+222 151369274346 288986470053 310945119573 686719358391 788378211831 1048542900489 1202109620082 1388768677782 1536510138552 2004559174542 2466356212119 2512044743877 2897851050933 3169553513691 3210264470577 3402677136996 3418547108193 3880494821724 4081141454874 4556661067884 4798834731531 5127121283406 5262038956077 5266638260547 5571753906363 5982693594753 6310525484571 6462655514211 6927113615577 7029854069484 7195377927021 7632164863590 8035935853707 8411082100437 8910083981355 9281824...
+
+Output
+
+YES
+
+222 41582
+
+Answer
+
+YES
+
+222 41582
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #5, time: 218 ms., memory: 4692 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+536 296135743901 638946124433 796759789337 1138002318860 1287289277741 1337260470005 1644614129492 1909518250901 2004191297558 2231893572638 2526956713337 2539944759746 2676687044510 2739393620690 3073091730278 3214790230562 3276941844959 3445190060294 3739305623342 4021519924589 4202592720791 4451783623673 4512111738896 4532666970989 4884930735491 5050232092562 5167389115424 5324158914755 5438023487819 5506830538313 5580253064510 5758283834153 5817574055147 6068935914782 6258899668991 64556...
+
+Output
+
+YES
+
+536 33850
+
+Answer
+
+YES
+
+536 33850
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #6, time: 202 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+642 256646496472 595181271254 2081323518820 3378914843010 4238786420156 5435505072014 7162834839954 7434081280834 9181159818482 9397985522290 11161846406560 11796132312868 13562945332816 13637391658126 14338217595342 15519805882128 16439052355070 18076016053336 19232269193886 20651816046838 21118062389880 21836317178930 23548073672150 24089005654586 25112739514084 25294121730496 25904695897302 27598766365344 29303073761218 30898280723678 31382695291918 32543238226720 32698670938352 336080841...
+
+Output
+
+YES
+
+642 149561
+
+Answer
+
+YES
+
+642 149561
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #7, time: 248 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+3857049434879 8417084447995 9100111769256 13148864132063 16564157445618 17682677652117 22290423168009 25288982208263 25469828041223 26456342556317 26971632338487 28753559818875 29561042448727 30789244864170 38621587865661 50398145493704 54292682220716 57144294671096 57374637955402 57930860408380 58031291702270 61617870148885 62251396238035 63669622967654 65979589530852 71364620839087 77729861209878 80073739156847 84768514344640 92198573869952 92293861624363 102079825316184 107114011390205 10...
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #8, time: 187 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+372 540426171252 1072555481652 1636640143092 1724481556212 1798468119732 2374329866292 2590563667572 2852076191412 3236078672052 3777265949172 4082504119092 4165832598132 4592801470452 4752572670132 5296396967412 5346600349812 5871109955892 5955014974452 6431799577332 6786125087412 6818022414132 7248936322932 7410793929012 7466063945652 7960087944372 8210782636212 8455098356532 8580055581492 8895985658292 8903940545652 9013334907252 9079598680692 9089544296052 9346603761972 9932163594612 996...
+
+Output
+
+YES
+
+372 2271
+
+Answer
+
+YES
+
+372 2271
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #9, time: 217 ms., memory: 4692 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+886 26219158200 763106579498 1743683462924 2691875152040 3349788099494 3945308672596 4694586168234 5257094543264 6068233410068 6503761023218 7126814761518 7248744493092 8059665358588 8128577772060 8775179651648 9659996960520 9773172639570 10580499483502 10601483609406 11478534871682 12367081202928 12827324964374 13372896237782 13412544475670 13961620770108 14718000308358 15104579627820 15230682384432 16150719904624 17049000294274 17216348298356 17346487079184 17709187255372 17867493205202 18...
+
+Output
+
+YES
+
+886 122517
+
+Answer
+
+YES
+
+886 122517
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #10, time: 202 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+520 2901973335420 5485560621076 6387686370286 8955944001640 9617496895078 11554226074102 14405496854404 14484409087362 16750239201954 18390760768882 19490279400162 20897427269150 23243154859182 23650320539494 25356664689262 26936092238332 28663279207780 28945244226428 31751463371778 34281575049528 36311635739780 38890641198696 40410630775782 42430797116002 45103095155592 45854005649092 47108964998520 49808304799850 50231120562870 50421296319160 52821161336516 53927867146996 56078639506570 56...
+
+Output
+
+YES
+
+520 174248
+
+Answer
+
+YES
+
+520 174248
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #11, time: 249 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+842243 963762040643 1927523239043 2891284437443 3855045635843 4818806834243 5782568032643 6746329231043 7710090429443 8673851627843 9637612826243 10601374024643 11565135223043 12528896421443 13492657619843 14456418818243 15420180016643 16383941215043 17347702413443 18311463611843 19275224810243 20238986008643 21202747207043 22166508405443 23130269603843 24094030802243 25057792000643 26021553199043 26985314397443 27949075595843 28912836794243 29876597992643 30840359191043 31804120389443 32767...
+
+Output
+
+YES
+
+842243 151703
+
+Answer
+
+YES
+
+842243 151703
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #12, time: 233 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+892963 963762091363 1927523289763 2891284488163 3855045686563 4818806884963 5782568083363 6746329281763 7710090480163 8673851678563 9637612876963 10601374075363 11565135273763 12528896472163 13492657670563 14456418868963 15420180067363 16383941265763 17347702464163 18311463662563 19275224860963 20238986059363 21202747257763 22166508456163 23130269654563 24094030852963 25057792051363 26021553249763 26985314448163 27949075646563 28912836844963 29876598043363 30840359241763 31804120440163 32767...
+
+Output
+
+YES
+
+892963 142152
+
+Answer
+
+YES
+
+892963 142152
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #13, time: 233 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+410361 75898005217 170769998787 265641992357 303590789785 360513985927 455385979497 531283574353 626155567923 721027561493 853848352491 910771548633 986669143489 1062566738345 1195387529343 1271285124199 1309233921627 1423080313911 1480003510053 1574875503623 1669747497193 1726670693335 1802568288191 1897440281761 1973337876617 2068209870187 2163081863757 2182056262471 2257953857327 2352825850897 2371800249611 2466672243181 2542569838037 2732313825177 2827185818747 2960006609745 299795540717...
+
+Output
+
+YES
+
+410361 56155
+
+Answer
+
+YES
+
+410361 56155
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #14, time: 234 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+46649 125215483460 292169399208 375646357082 500861793893 709554188578 876508104326 1043462020074 1252154414759 1460846809444 1627800725192 1794754640940 2003447035625 2212139430310 2420831824995 2546047261806 2629524219680 2838216614365 3005170530113 3088647487987 3297339882672 3464293798420 3672986193105 3756463150979 3965155545664 4090370982475 4173847940349 4424278813971 4674709687593 4925140561215 5050355998026 5259048392711 5300786871648 5426002308459 5592956224207 5718171661018 584338...
+
+Output
+
+YES
+
+46649 178680
+
+Answer
+
+YES
+
+46649 178680
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #15, time: 218 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+451285 414315121629 828629791973 1087576460938 1242944462317 1553680465075 1812627134040 2330520471970 2589467140935 2693045808521 2796624476107 3107360478865 3418096481623 3625253816795 3728832484381 3884200485760 4039568487139 4091357820932 4246725822311 4453883157483 4661040492655 4919987161620 5075355162999 5386091165757 5645037834722 5955773837480 6214720506445 6370088507824 6680824510582 6991560513340 7198717848512 7509453851270 7768400520235 8130925856786 8234504524372 8389872525751 8...
+
+Output
+
+YES
+
+451285 71333
+
+Answer
+
+YES
+
+451285 71333
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #16, time: 264 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+3857049434879 8417084447995 9100111769256 13148864132063 16564157445618 17682677652117 22290423168009 25288982208263 25469828041223 26456342556317 26971632338487 28753559818875 29561042448727 30789244864170 38621587865661 50398145493704 54292682220716 57144294671096 57374637955402 57930860408380 58031291702270 61617870148885 62251396238035 63669622967654 65979589530852 71364620839087 77729861209878 80073739156847 84768514344640 92198573869952 92293861624363 102079825316184 107114011390205 10...
+
+Output
+
+YES
+
+3857049434879 300000
+
+Answer
+
+YES
+
+3857049434879 300000
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #17, time: 15 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+2 8
+
+1
+
+Output
+
+YES
+
+2 1
+
+Answer
+
+YES
+
+2 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #18, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+1 999999998000000002
+
+999999999
+
+Output
+
+YES
+
+1 1
+
+Answer
+
+YES
+
+1 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #19, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+500000000000000000 1000000000000000000
+
+567567
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #20, time: 15 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+10000000000 20000000000
+
+10000000000
+
+Output
+
+YES
+
+10000000000 1
+
+Answer
+
+YES
+
+10000000000 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #21, time: 0 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+1 1000000000000000000
+
+100000000000000007
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #22, time: 0 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+1 1000000000000000000
+
+5
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #23, time: 31 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+3 1
+
+7 21 105
+
+84
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #24, time: 31 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+10 20
+
+5
+
+Output
+
+YES
+
+10 1
+
+Answer
+
+YES
+
+10 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #25, time: 15 ms., memory: 4692 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+6 16
+
+2
+
+Output
+
+YES
+
+6 1
+
+Answer
+
+YES
+
+6 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #26, time: 15 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+10 15
+
+9
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #27, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+1 7
+
+2
+
+Output
+
+YES
+
+1 1
+
+Answer
+
+YES
+
+1 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #28, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+5 11
+
+4
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #29, time: 15 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+3 4
+
+4 25 53
+
+7 4 7 4
+
+Output
+
+YES
+
+4 1
+
+Answer
+
+YES
+
+4 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #30, time: 0 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+4 3
+
+6 8 88 91
+
+10 5 2
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #31, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+4 4
+
+8 260 323 327
+
+9 7 4 1
+
+Output
+
+YES
+
+8 4
+
+Answer
+
+YES
+
+8 4
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #32, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+7 8
+
+1
+
+Output
+
+YES
+
+7 1
+
+Answer
+
+YES
+
+7 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #33, time: 31 ms., memory: 4704 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+5 3
+
+10 15 135 140 146
+
+5 6 8
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #34, time: 15 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+9 14
+
+3
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #35, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+3 4
+
+8 28 91
+
+2 7 9 4
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #36, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+5 1
+
+1 43 50 106 113
+
+7
+
+Output
+
+YES
+
+1 1
+
+Answer
+
+YES
+
+1 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #37, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+5 3
+
+6 24 25 31 121
+
+6 5 9
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #38, time: 15 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+2147483648 2147483650
+
+2
+
+Output
+
+YES
+
+2147483648 1
+
+Answer
+
+YES
+
+2147483648 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #39, time: 0 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+4 3
+
+8 32 74 242
+
+6 7 8
+
+Output
+
+YES
+
+8 1
+
+Answer
+
+YES
+
+8 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #40, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+4 1
+
+1 3 7 12
+
+2
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #41, time: 15 ms., memory: 4692 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+5 3
+
+7 151 163 167 169
+
+2 2 9
+
+Output
+
+YES
+
+7 1
+
+Answer
+
+YES
+
+7 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #42, time: 15 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+5 3
+
+10 73 433 1063 1073
+
+7 9 10
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #43, time: 46 ms., memory: 4692 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+100000 100000
+
+2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44 46 48 50 52 54 56 58 60 62 64 66 68 70 72 74 76 78 80 82 84 86 88 90 92 94 96 98 100 102 104 106 108 110 112 114 116 118 120 122 124 126 128 130 132 134 136 138 140 142 144 146 148 150 152 154 156 158 160 162 164 166 168 170 172 174 176 178 180 182 184 186 188 190 192 194 196 198 200 202 204 206 208 210 212 214 216 218 220 222 224 226 228 230 232 234 236 238 240 242 244 246 248 250 252 254 256 258 260 262 264 266 268 270 272 274 2...
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #44, time: 265 ms., memory: 4688 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+300000 300000
+
+13967553600 27935107200 41902660800 55870214400 69837768000 83805321600 97772875200 111740428800 125707982400 139675536000 153643089600 167610643200 181578196800 195545750400 209513304000 223480857600 237448411200 251415964800 265383518400 279351072000 293318625600 307286179200 321253732800 335221286400 349188840000 363156393600 377123947200 391091500800 405059054400 419026608000 432994161600 446961715200 460929268800 474896822400 488864376000 502831929600 516799483200 530767036800 544734590...
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #45, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+4 1
+
+4 5 7 9
+
+2
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #46, time: 15 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+2 5
+
+1
+
+Output
+
+YES
+
+2 1
+
+Answer
+
+YES
+
+2 1
+
+Checker Log
+
+ok Ok, the answer is YES
+
+Test: #47, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 2
+
+1 1000000000000000000
+
+1000000000000000000 1000000000000000000
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #48, time: 15 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+500000000000000000 1000000000000000000
+
+700000000
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #49, time: 0 ms., memory: 4696 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+1 1000000000000000000
+
+700000000
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #50, time: 15 ms., memory: 4700 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+2 1
+
+1 1000000000000000000
+
+2
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+Test: #51, time: 15 ms., memory: 4704 KB, exit code: 0, checker exit code: 0, verdict: OK
+Input
+
+4 1
+
+4 6 7 8
+
+2
+
+Output
+
+NO
+
+Answer
+
+NO
+
+Checker Log
+
+ok Ok, the answer is NO
+
+
