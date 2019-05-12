@@ -13,10 +13,6 @@ typedef vector< pair<int,int> > vii;
 const int INF = 0x3f3f3f3f;
 
 const int T = 110;
-int la[T];
-int lb[T];
-int ra[T];
-int rb[T];
 int a[T];
 int b[T];
 int n,k;

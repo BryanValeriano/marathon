@@ -12,13 +12,23 @@ typedef pair<int,int> ii;
 typedef vector< pair<int,int> > vii;
 const int INF = 0x3f3f3f3f;
 
+unordered_map<int,int> bag;
 
 int main() {
     ios::sync_with_stdio(false);
-
-    for(int i = 0; i < 2100; i++) 
-        cout << "1 -1 1 -1 -1 1" << endl;
-
+    int n,m,x;
+    cin >> n >> m;
+    while(n or m) {
+        bag.clear();
+        int ans = 0;
+        for(int i = 0; i < n+m; i++) { 
+            cin >> x;
+            bag[x]++;
+            if(bag[x] == 2) ans++;
+        }
+        cout << ans << endl;
+        cin >> n >> m;
+    }
     return 0;
 }
 

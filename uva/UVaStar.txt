@@ -5,20 +5,20 @@
 11264 //Gredy com safadeza
 11221 //Palindrome AdHoc Implementation
 193   //Brute force, Weak tests case
-11695 nao consegui
+11695 ------ nao consegui
 11517 //soh passa bottom up
 11284 //TSP, entrada double mult por 100, ans/=100
 793   //Union-Find, input chato
 10107 //nth_element()
 11057 //binary search - ou map pra facilitar
 403
-11849
-452
-334
-382
-10337
-11060
-10341
+11849 //map ou set
+452   //dfs toposort
+334   //small input, O(n³) (só deu pra saber lendo o livro :: o problema n da tam da entrada)
+382   //brute force
+10337 //dp - bacaninha
+11060 //toposort
+10341 //busca bin
 11380
 11906
 11634
