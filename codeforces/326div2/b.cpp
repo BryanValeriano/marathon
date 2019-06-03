@@ -12,16 +12,21 @@ typedef pair<int,int> ii;
 typedef vector< pair<int,int> > vii;
 const int INF = 0x3f3f3f3f;
 
-
 int main() {
     ios::sync_with_stdio(false);
+    ll x; cin >> x;
+    ll ans = 1;
 
-    int ans = 100;
-    
-    for(int i = 1; i <= 100; i++) 
-        if(i % 2 and i % 5 and i % 8 and i % 30 and i % 7) ans--; 
+    for(ll i = 2; i*i <= x; i++) {
+        if(x % i == 0) {
+            ans *= i;
+            while(x % i == 0) x /= i;
+        }
+    }
 
-    cout << 100-ans << endl;
+    ans *= x;
+
+    cout << ans << endl;
 
     return 0;
 }
