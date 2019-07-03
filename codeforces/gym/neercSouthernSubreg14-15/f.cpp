@@ -1,66 +1,54 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define pb push_back 
-#define mk make_pair 
-#define fi first 
-#define se second 
-#define eb emplace_back 
-typedef long long ll; 
-typedef pair<int,int> ii; 
-typedef vector< pair<int,int> > vii; 
-const int INF = 0x3f3f3f3f; 
-
-int n, k; 
+ 
+#define pb push_back
+#define eb emplace_back
+#define mk make_pair
+#define fi first
+#define se second
+#define cc(x)	cout << #x << " = " << x << endl
+#define ok		cout << "ok" << endl
+#define endl '\n'
+ 
+typedef long long ll;
+typedef pair<int,int> ii;
+const int INF = 0x3f3f3f3f;
+const double PI = acos(-1.0);
+ 
+const int T = 2e5 + 5;
+ 
 vector<ll> v;
-
-ii search() { 
-    ll ans = 0;
-    int im = 0, jm = 0, i = 0, j = 0;
-    ll cont = 0;
-    while(true) {
-        if(j == v.size()-1) break;
-        if(j-i < k) {
-            cont += v[++j];
-            if(j-i == k) cont -= v[i++];
-        } else {
-            cont -= v[i++];
-        }
-
-        if(cont > ans) {
-            im = i;
-            jm = j;
-            ans = cont;
-        }
-    }
-    
-    return ii(im, jm);
-
-}
-
+vector<ll> v3;
+ll maxi[T];
+int n,k;
+ 
 int main() {
-    ios_base::sync_with_stdio(false);
-
-    cin >>n >>k;
-    
-    for(int i = 0; i < n; i++) {
-        ll a; cin >>a;
-        v.pb(a);
-    }
-
-    ll ans = 0;
-    
-    ii s1 = search();
-    for(int i = s1.fi; i <= s1.se; i++) {
-        ans += v[i];
-        v[i] = 0;
-    }
-
-    ii s2 = search();
-    for(int i = s2.fi; i <= s2.se; i++) {
-        ans += v[i];
-    }
-
-    cout <<ans <<endl;
-    return 0;
+	ios_base::sync_with_stdio(false);
+	cin >> n >> k;
+	int x;
+ 
+	for(int i = 0; i < n; i++) cin >> x, v.pb(x);
+	ll ans = 0;
+	
+	ll tot = 0;
+    ll corner = 0;
+	ll best = 0;
+	ll l = 0;
+	for(int i = 0; i < n; i++) {
+        corner += v[i];
+		tot += v[i];
+		if(i >= k) tot -= v[i-k];
+		if(i >= k-1) v3.pb(tot);	
+		if(tot > best) l = i;
+		best = max(best, tot);
+	}
+	for(int i = v3.size() -1; i >= 0; i--) 
+		maxi[i] = max(maxi[i+1], v3[i]);
+ 
+	for(int i = 0; i < v3.size(); i++) 
+		ans = max(ans, v3[i] + maxi[i+k]);
+	
+    if(2*k >= n) ans = corner;
+	cout << ans << endl;
+	return 0;
 }
-
