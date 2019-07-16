@@ -19,10 +19,10 @@
 10337 //dp - bacaninha
 11060 //toposort
 10341 //busca bin
-11380
-11906
-11634
-104
+11380 //flow com peso no vertice :: aprendi dinic!!!
+11906 //dfs padrao, corner cases, enunciado ruim
+11634 //simulacao padrao, set ou unordered
+104   //floyd warshall com 1 estado a mais de numero de passos
 11728
 872
 10140

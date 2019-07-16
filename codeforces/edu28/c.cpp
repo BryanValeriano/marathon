@@ -23,9 +23,10 @@ ll solve(int at, int p) {
     ll &r = dp[at][p];
     if(r != -1) return r;
     
-    ll x = (p&1? - v[at] : v[at]);
+    ll x = (p&1? -v[at] : v[at]);
     ll k = solve(at+1,p) + x;
-    ll t = solve(at+1,p+1) + x;
+    ll t = -INF;
+    if(p < 3) t = solve(at+1,p+1) + x;
 
     ll ans = max(k,t);
 
@@ -53,7 +54,7 @@ int main() {
 
     for(int i = 0; i < 4; i++) {
         k = solve(0,i);
-        if(k > ans) ini = i;
+        if(k >= ans) ini = i;
         ans = max(ans, k);
     }
 
