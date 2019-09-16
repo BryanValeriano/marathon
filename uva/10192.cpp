@@ -25,7 +25,7 @@ int solve(int x, int y) {
 
     if(a[x] == b[y]) return dp[x][y] = solve(x+1,y+1) + 1;
     dp[x][y] = max(solve(x+1,y), solve(x,y+1));
-    
+
     vis[x][y] = v;
     return dp[x][y];
 }
@@ -37,7 +37,7 @@ int bottom() {
         dp[i][b.size()] = 0;
         for(int j = b.size() - 1; j >= 0; j--) {
             if(a[i] == b[j]) dp[i][j] = 1 + dp[i+1][j+1];
-            else dp[i][j] = max(dp[i+1][j], dp[i][j+1]);     
+            else dp[i][j] = max(dp[i+1][j], dp[i][j+1]);
         }
     }
 

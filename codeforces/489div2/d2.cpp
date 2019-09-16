@@ -12,52 +12,22 @@ typedef pair<ll,ll> ii;
 const ll INF = 0x3f3f3f3f3f3f3f;
 
 const int T = 2e5 + 10;
-ii seg[4*T];
-ll lazy[4*T];
+const int SQR = sqrt(T)+2;
 
+ll blk[SQR];
 ll v[T];
 ll acum[T];
 ll dist[T];
-ll a,b,val;
 
-ii best(const ii &a, const ii &b) {
-    if(abs(a.fi) < abs(b.fi)) return a;
-    return b;
+
+
+void build() {
+    for(int i = 0; i < SQR; i++) blk[i] = INF;
+    for(int i = 1; i <= n; i++)
+        blk[i/SQR] = min(abs(dist[i]),blk[i/SQR]);
 }
 
-void build(int node, int i, int j) {
-    if(i == j) seg[node] = mk(dist[i],i);
-    else {
-        int mid = (i+j) >> 1;
-        build(2*node, i, mid);
-        build(2*node+1, mid+1, j);
-        seg[node] = best(seg[2*node], seg[2*node+1]);
-    }
-}
-
-void prop(int node, int i, int j) {
-    seg[node].fi += lazy[node];
-
-    if(i != j) {
-        lazy[2*node] += lazy[node];
-        lazy[2*node+1] += lazy[node];
-    }
-
-    lazy[node] = 0;
-}
-
-void update(int node, int i, int j) {
-    prop(node, i, j);
-    if(i > b or j < a) return;
-    if(i >= a and j <= b) {
-        lazy[node] += val;
-        prop(node,i,j);
-    } else {
-        int mid = (i+j) >> 1;
-        update(2*node, i, mid);
-        update(2*node+1, mid+1, j);
-        seg[node] = best(seg[2*node], seg[2*node+1]);
-    }
+void update(int a, int b, ll val) {
 }
 
 ii query(int node, int i, int j) {

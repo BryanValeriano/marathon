@@ -24,33 +24,30 @@ int vez,t,n;
 bool flag;
 
 int main() {
-    ios_base::sync_with_stdio(false);
+    string r;
 
-    while(cin >> t >> n) {
-        if(t < 2000) flag = 1;
-        else flag = 0;
+    while(~scanf("%d %d", &t, &n)) {
+        int last = t;
 
         if(t > 1800) t += 200;
-        memset(dp, 0, sizeof dp);
         vez++; vis[0] = vez;
         int ans = 0;
 
         for(int i = 0; i < n; i++) {
-            cin >> sz[i] >> ganho[i];
+            scanf("%d %d", &sz[i], &ganho[i]);
             for(int j = t; j-sz[i] >= 0; j--) {
                 if(vis[j-sz[i]] == vez) {
+                    if(vis[j] != vez) dp[j] = 0;
                     dp[j] = max(dp[j], ganho[i] + dp[j-sz[i]]), vis[j] = vez;
-                    if(j == 2000 and flag) continue;
-                    //cout << i << " " << j << " " << dp[j] << endl;
+                    if(j > last and j <= 2000) continue;
                     ans = max(ans,dp[j]);
                 }
             }
         }
-
-        cout << ans << endl;
+        r += to_string(ans) + "\n";
     }
 
-    cout << endl;
+    printf("%s", r.c_str());
 
     return 0;
 }

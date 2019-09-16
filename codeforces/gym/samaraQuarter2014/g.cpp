@@ -13,33 +13,33 @@ typedef pair<int,int> ii;
 const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
 
-const int T = 2000 + 3;
-map<int,int> freq;
-int v[T];
-int n;
+const int T = 30;
+ll v[T];
 
 int main() {
     ios_base::sync_with_stdio(false);
-    cin >> n;
-    int reps = 0;
+    ll n,s; cin >> n >> s;
+
+    v[0] = 1;
+    int lim = n;
 
     for(int i = 1; i <= n; i++) {
-        cin >> v[i];
-        freq[v[i]]++;
-        if(freq[v[i]] == 2) reps++;
+        ll x; cin >> x;
+        if(s/x >= v[i-1]) v[i] = v[i-1]*x;
+        else { lim = i-1; break; }
     }
 
-    int r = 0;
+    ll ans = 0;
 
-    for(int l = 0; l <= n; l++) {
-        freq[v[l]]++;
-        while(freq[v[l]] == 2)
-
-
+    while(lim >= 0) {
+        ll vez = s/v[lim];
+        s -= vez*v[lim];
+        ans += vez;
+        lim--;
+        if(!s) break;
     }
 
-
-
+    cout << ans << endl;
 
     return 0;
 }

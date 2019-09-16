@@ -41,16 +41,14 @@ void pegaPrimes() {
 	if(b > 1) {
 		ll l = 1;
 		ll r = sqrt(b) + 1;
-		ll mid;
 
-		while(l <= r) {
-			mid = (l+r) >> 1;
+		while(l != r) {
+			ll mid = (l+r+1) >> 1;
 			if(mid*mid > b) r = mid-1;
-			else if(mid*mid < b) l = mid+1;
-			else break;
+            else l = mid;
 		}
 
-		if(mid*mid == b) ans *= mid;
+		if(l*l == b) ans *= l;
 		else ans *= b;
 	}
 }

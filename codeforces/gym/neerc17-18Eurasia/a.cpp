@@ -47,7 +47,7 @@ int main() {
     for(int i = 0; i < n; i++) {
         cin >> a >> b >> c, q.pb({a,b,c});
         if(a == 2) id[b] = 0;
-        else id[b-c] = 0, id[b+c] = 0; 
+        else id[b-c] = 0, id[b+c] = 0;
     }
 
     int i = 0;
@@ -76,7 +76,7 @@ int main() {
         }
 
         for(auto ok : at) acum[i][k++] = ok;
-        
+
         for(int j = 0; j < coloca.size(); j++) at.insert(coloca[j]);
         coloca.clear();
     }
@@ -102,7 +102,7 @@ int main() {
                     break;
                 }
             }
-            if(n == 5e3) cout << k << " --- "; 
+            if(n == 5e3) cout << k << " --- ";
             if(!flag) cout << -1 << endl;
         }
     }

@@ -575,7 +575,7 @@ UVa 10226 - Hardwood Species * (use hashing for a better performance)
 UVa 10227 - Forests (merge two disjoint sets if they are consistent)
 UVa 10233 - Dermuba Triangle * (the number of items in row forms arithmetic progression series; use hypot)
 UVa 10238 - Throw the Dice (similar to UVa 10759; use Java BigInteger)
-UVa 10243 - Fire! Fire!! Fire!!! DP on Tree (Min Vertex Cover)             Section    4.7.1    
+UVa 10243 - Fire! Fire!! Fire!!! DP on Tree (Min Vertex Cover)             Section    4.7.1
 UVa 10249 - The Grand Dinner
 UVa 10252 - Common Permutation * (count freq of each alphabet)
 UVa 10257 - Dick and Jane (we can brute force the integer ages of spot, puff, and yertle; need some mathematical insights)
@@ -618,7 +618,7 @@ UVa 10337 - Flight Planner * (DP; shortest paths on DAG)
 UVa 10338 - Mischievous Children * (use long long to store up to 20!)
 UVa 10339 - Watching Watches (find the formula)
 UVa 10340 - All in All
-UVa 10341 - Solve It             Divide & Conquer (Bisection Method)       Section    3.3      
+UVa 10341 - Solve It             Divide & Conquer (Bisection Method)       Section    3.3
 UVa 10341 - Solve It * (bisection method discussed in this section; for alternative solutions, see http://www.algorithmist.com/index.php/UVa 10341)
 UVa 10344 - 23 Out of 5 (rearrange the 5 operands and the 3 operators)
 UVa 10346 - Peter’s Smoke * (interesting simulation problem)
@@ -627,7 +627,7 @@ UVa 10350 - Liftless Eme * (shortest paths; implicit DAG; DP) Also see: Longest 
 UVa 10354 - Avoiding Your Boss (find boss’s shortest paths, remove edges involved in boss’s shortest paths, re-run shortest paths from home to market)
 UVa 10356 - Rough Roads (we can attach one extra information to each vertex: whether we come to that vertex using cycle or not; then, run Dijkstra’s to solve SSSP on this modified graph)
 UVa 10359 - Tiling (derive the formula, use Java BigInteger)
-UVa 10360 - Rat Attack           Complete Search or DP                     Section    3.2     
+UVa 10360 - Rat Attack           Complete Search or DP                     Section    3.2
 UVa 10360 - Rat Attack (also solvable using 1024 2 DP max sum)
 UVa 10361 - Automatic Poetry (read, tokenize, process as requested)
 UVa 10363 - Tic Tac Toe (check validity of Tic Tac Toe game, tricky)
@@ -971,7 +971,7 @@ UVa 11283 - Playing Boggle * (2D grid, backtracking, do not count twice)
 UVa 11284 - Shopping Trip * (requires shortest paths pre-processing; TSP variant where we can go home early; we just need to tweak the DP TSP recurrence a bit: at each state, we have one more option: go home early)
 UVa 11286 - Conformity * (use map to keep track of the frequencies)
 UVa 11291 - Smeech * (recursive descent parser)
-UVa 11292 - Dragon of Loowater   Greedy (Non Classical)                    Section    3.4        
+UVa 11292 - Dragon of Loowater   Greedy (Non Classical)                    Section    3.4
 UVa 11292 - Dragon of Loowater *
 UVa 11296 - Counting Solutions to an ... (simple formula exists)
 UVa 11297 - Census (Quad Tree with updates or use 2D segment tree)
@@ -1027,7 +1027,7 @@ UVa 11417 - GCD (brute force, input is small)
 UVa 11418 - Clever Naming Patterns (two layers of matching, it may be easier to use max flow solution)
 UVa 11419 - SAM I AM (MVC, König theorem)
 UVa 11420 - Chest of Drawers (s: prev, id, numlck; lock/unlock this chest)
-UVa 11450 - Wedding Shopping     DP (Non Classical)                        Section    3.5      
+UVa 11450 - Wedding Shopping     DP (Non Classical)                        Section    3.5
 UVa 11450 - Wedding Shopping (discussed in details in this section with sample source code)
 UVa 11452 - Dancing the Cheeky ... * (string period, small input, BF)
 UVa 11456 - Trainsorting * (max(LIS(i) + LDS(i) - 1), ∀i ∈ [0 . . . n-1])
@@ -1179,7 +1179,7 @@ UVa 11945 - Financial Management (a bit output formatting)
 UVa 11946 - Code Number (ad hoc)
 UVa 11947 - Cancer or Scorpio * (easier with Java GregorianCalendar)
 UVa 11951 - Area * (use long long; max 2D range sum; prune the search space whenever possible)
-UVa 11953 - Battleships * (interesting twist of flood fill problem)	
+UVa 11953 - Battleships * (interesting twist of flood fill problem)
 UVa 11955 - Binomial Theorem * (pure application; DP)
 UVa 11956 - Brain**** (simulation; ignore ‘.’)
 UVa 11957 - Checkers * (counting paths in DAG; DP)

@@ -13,34 +13,24 @@ typedef pair<int,int> ii;
 const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
 
-const int T = 2000 + 3;
-map<int,int> freq;
-int v[T];
+string ans = "0000000000";
 int n;
+
+void pega(int ini, int pas) {
+    for(int i = ini; i < 10 and i >= 0; i += pas)
+        if(ans[i] == '0') { ans[i] = '1'; return; }
+}
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin >> n;
-    int reps = 0;
-
-    for(int i = 1; i <= n; i++) {
-        cin >> v[i];
-        freq[v[i]]++;
-        if(freq[v[i]] == 2) reps++;
+    string s; cin >> s;
+    for(int i = 0; i < n; i++) {
+        if(s[i] == 'L') pega(0,1);
+        else if(s[i] == 'R') pega(9,-1);
+        else ans[s[i]-'0'] = '0';
     }
-
-    int r = 0;
-
-    for(int l = 0; l <= n; l++) {
-        freq[v[l]]++;
-        while(freq[v[l]] == 2)
-
-
-    }
-
-
-
-
+    cout << ans << endl;
     return 0;
 }
 

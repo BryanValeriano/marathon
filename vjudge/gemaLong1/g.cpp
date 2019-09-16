@@ -6,6 +6,7 @@ using namespace std;
 #define fi first
 #define se second
 #define eb emplace_back
+#define endl '\n'
 
 typedef long long ll;
 typedef pair<int,int> ii;
@@ -26,20 +27,20 @@ vector<int> shift(int x) {
     vector<int> c(n), p(n), cn(n), pn(n), cnt(max(n,alphabet),0);
 
     for(int i = 0; i < n; i++) cnt[s[i]]++;
-    for(int i = 1; i < n; i++) cnt[i] += cnt[i-1];
+    for(int i = 1; i < alphabet; i++) cnt[i] += cnt[i-1];
     for(int i = 0; i < n; i++) p[--cnt[s[i]]] = i;
 
     int cls = 1;
     c[p[0]] = 0;
 
     for(int i = 1; i < n; i++) {
-        cls += (s[i] != s[i-1]);
+        cls += (s[p[i]] != s[p[i-1]]);
         c[p[i]] = cls-1;
     }
 
     int h = 1;
 
-    while(h < n) {
+    while(h <= n) {
         for(int i = 0; i < n; i++) {
             pn[i] = p[i] - h;
             if(pn[i] < 0) pn[i] += n;
@@ -55,8 +56,8 @@ vector<int> shift(int x) {
         cn[p[0]] = 0;
 
         for(int i = 1; i < n; i++) {
-            ii prev = {c[p[i-1]], p[i-1] + h < n? c[p[i-1] + h] : -1};
-            ii at = {c[p[i]], p[i] + h < n? c[p[i] + h] : -1};
+            ii prev = {c[p[i-1]], c[(p[i-1] + h)%n] };
+            ii at = {c[p[i]], c[(p[i] + h)%n] };
             cls += (at != prev);
             cn[p[i]] = cls - 1;
         }
@@ -67,7 +68,6 @@ vector<int> shift(int x) {
 
     return p;
 }
-
 
 vector<int> build(int x) {
     a[x] += "$";
@@ -81,12 +81,13 @@ bool bigger(int suf, int mid, int pref, int pos) {
     int t = 0;
 
     for(int i = v[suf][mid]; i < (int)a[suf].size(); i++) {
-        if(t > pos) return true;
-        if(a[suf][i] < a[pref][t++]) return false;
-        if(a[suf][i] > a[pref][t++]) return true;
+        if(t > pos) return (t == a[pref].size());
+        if(a[suf][i] < a[pref][t]) return false;
+        if(a[suf][i] > a[pref][t]) return true;
+        t++;
     }
 
-    return true;
+    return (t > pos);
 }
 
 
@@ -101,30 +102,30 @@ bool search(int suf, int pref, int pos) {
     }
 
     int t = 0;
-    cout << "receio q n " << suf << " " << pref << " " << v[suf][l] << endl;
 
     for(int i = v[suf][l]; i < (int)a[suf].size(); i++) {
-        if(t > pos) return true;
+        if(t > pos) return (t == a[pref].size());
         if(a[suf][i] != a[pref][t++]) return false;
     }
 
-    return true;
+    return (t > pos);
 }
 
 int bind(int x, int y) {
     int ans = 0;
 
-    for(int i = 0; i < (int)a[y].size(); i++) 
+    for(int i = 0; i < (int)a[y].size(); i++) {
         if(search(x,y,i)) ans = i+1;
-   
+    }
+
+
    return ans;
-}    
+}
 
 void buildMaxEqual() {
-    for(int i = 0; i < 3; i++) 
+    for(int i = 0; i < 3; i++)
         for(int j = 1; j < 3; j++) {
             maxEqual[i][(i+j)%3] = bind(i, (i+j)%3);
-            cout << i << " " << (i+j)%3 << " | " << maxEqual[i][(i+j)%3] << endl;
         }
 }
 
@@ -132,24 +133,35 @@ int best() {
     vector<int> perm = {0,1,2};
     int ans = 0;
 
-    do { 
+
+    do {
         ans = max(ans, maxEqual[perm[0]][perm[1]] + maxEqual[perm[1]][perm[2]]);
     } while(next_permutation(perm.begin(), perm.end()));
-    
+
+    if(maxEqual[0][1] == a[1].size()) ans = max(ans, (int)a[1].size() + maxEqual[0][2]);
+    if(maxEqual[0][2] == a[2].size()) ans = max(ans, (int)a[2].size() + maxEqual[0][1]);
+    if(maxEqual[1][0] == a[0].size()) ans = max(ans, (int)a[0].size() + maxEqual[1][2]);
+    if(maxEqual[1][2] == a[2].size()) ans = max(ans, (int)a[2].size() + maxEqual[1][0]);
+    if(maxEqual[2][0] == a[0].size()) ans = max(ans, (int)a[0].size() + maxEqual[2][1]);
+    if(maxEqual[2][0] == a[1].size()) ans = max(ans, (int)a[1].size() + maxEqual[2][0]);
+
     return (a[0].size() + a[1].size() + a[2].size() - ans);
 }
 
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(0); cout.tie(0);
 
-    while(cin >> a[0]) {
+    //while(cin >> a[0]) {
+        cin >> a[0];
         cin >> a[1] >> a[2];
         v[0] = build(0);
         v[1] = build(1);
         v[2] = build(2);
         buildMaxEqual();
         cout << best() << endl;
-    }
+    //}
+
 
     return 0;
 }
