@@ -13,27 +13,26 @@ typedef pair<int,int> ii;
 const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
 
-const int T = 1e5 + 3;
-vector<ll> g[T];
-
 int main() {
     ios_base::sync_with_stdio(false);
-    int n, m;
-    cin >> n >> m;
+    ll d, l , r;
+    double v, vv, vy = 0;
+
+    int n; cin >> n >> d >> v;
 
     for(int i = 0; i < n; i++) {
-        int a,b; cin >> a >> b;
-        if(a <= m) g[a].pb(b);
+        cin >> l >> r >> vv;
+        vy += (r-l) * vv;
     }
 
-    ll ans = 0;
-    priority_queue<ll, vector<ll> > pq;
+    vy /= d;
 
-    for(int i = 0; i <= m; i++) {
-        for(int j = 0; j < g[i].size(); j++) pq.push(g[i][j]);
-        if(pq.size()) ans += pq.top(), pq.pop();
-    }
-    cout << ans << endl;
+    vv = sqrt(v*v-vy*vy);
+
+    if(fabs(vy) >= v or 2*vv < v) {
+        cout << "Too hard" << endl;
+    } else cout << fixed << setprecision(3) << d/vv << endl;
+
     return 0;
 }
 
