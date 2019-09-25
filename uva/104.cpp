@@ -49,7 +49,7 @@ int main() {
             cout << "no arbitrage sequence exists" << '\n';
             continue;
         }
-        
+
         ans[steps] = path[coin][coin][steps];
 
         for(int j = steps-1; j >= 0; j--)
