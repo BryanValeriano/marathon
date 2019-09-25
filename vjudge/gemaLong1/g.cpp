@@ -6,163 +6,70 @@ using namespace std;
 #define fi first
 #define se second
 #define eb emplace_back
-#define endl '\n'
 
 typedef long long ll;
 typedef pair<int,int> ii;
 typedef vector< pair<int,int> > vii;
 const int INF = 0x3f3f3f3f;
 
+const int T = 1e5 + 3;
+int pi[T];
 string a[3];
-int maxEqual[3][3];
-vector<int> v[3];
-// 0   1    2    3    4    5
-//abc acb, bac, bca, cab, cba;
+string t,p;
+int h;
 
-vector<int> shift(int x) {
-    string s = a[x];
-    int n = s.size();
-    int alphabet = 256;
-
-    vector<int> c(n), p(n), cn(n), pn(n), cnt(max(n,alphabet),0);
-
-    for(int i = 0; i < n; i++) cnt[s[i]]++;
-    for(int i = 1; i < alphabet; i++) cnt[i] += cnt[i-1];
-    for(int i = 0; i < n; i++) p[--cnt[s[i]]] = i;
-
-    int cls = 1;
-    c[p[0]] = 0;
-
-    for(int i = 1; i < n; i++) {
-        cls += (s[p[i]] != s[p[i-1]]);
-        c[p[i]] = cls-1;
+void pre() {
+    p += '#';
+    pi[0] = pi[1] = 0;
+    for(int i = 2; i < (int)p.size(); i++) {
+        pi[i] = pi[i-1];
+        while(pi[i] > 0 and p[pi[i]] != p[i-1]) pi[i] = pi[pi[i]];
+        if(p[pi[i]] == p[i-1]) pi[i]++;
     }
-
-    int h = 1;
-
-    while(h <= n) {
-        for(int i = 0; i < n; i++) {
-            pn[i] = p[i] - h;
-            if(pn[i] < 0) pn[i] += n;
-        }
-
-        fill(cnt.begin(), cnt.begin() + cls, 0);
-
-        for(int i = 0; i < n; i++) cnt[c[pn[i]]]++;
-        for(int i = 1; i < cls; i++) cnt[i] += cnt[i-1];
-        for(int i = n-1; i >= 0; i--) p[--cnt[c[pn[i]]]] = pn[i];
-
-        cls = 1;
-        cn[p[0]] = 0;
-
-        for(int i = 1; i < n; i++) {
-            ii prev = {c[p[i-1]], c[(p[i-1] + h)%n] };
-            ii at = {c[p[i]], c[(p[i] + h)%n] };
-            cls += (at != prev);
-            cn[p[i]] = cls - 1;
-        }
-
-        c.swap(cn);
-        h <<= 1;
-    }
-
-    return p;
 }
 
-vector<int> build(int x) {
-    a[x] += "$";
-    vector<int> p = shift(x);
-    p.erase(p.begin());
-    a[x].pop_back();
-    return p;
-}
+int kmp() {
+    pre();
+    int k = 0;
+    int m = p.size()-1;
 
-bool bigger(int suf, int mid, int pref, int pos) {
-    int t = 0;
-
-    for(int i = v[suf][mid]; i < (int)a[suf].size(); i++) {
-        if(t > pos) return (t == a[pref].size());
-        if(a[suf][i] < a[pref][t]) return false;
-        if(a[suf][i] > a[pref][t]) return true;
-        t++;
+    for(int i = 0; i < (int)t.size(); i++) {
+        while(k > 0 and p[k] != t[i]) k = pi[k];
+        if(p[k] == t[i]) k++;
+        if(k == m) return k;
     }
-
-    return (t > pos);
+    return k;
 }
 
-
-bool search(int suf, int pref, int pos) {
-    int l = 0;
-    int r = a[suf].size()-1;
-
-    while(l <= r) {
-        int mid = (l+r) >> 1;
-        if(bigger(suf,mid,pref,pos)) r = mid-1;
-        else l = mid+1;
-    }
-
-    int t = 0;
-
-    for(int i = v[suf][l]; i < (int)a[suf].size(); i++) {
-        if(t > pos) return (t == a[pref].size());
-        if(a[suf][i] != a[pref][t++]) return false;
-    }
-
-    return (t > pos);
+int calc(string x, string y, string z) {
+    int hh = h;
+    t = x;
+    p = y;
+    int s = kmp();
+    hh -= s;
+    for(int i = s; i < (int)y.size(); i++) t += y[i];
+    p = z;
+    hh -= kmp();
+    return hh;
 }
 
-int bind(int x, int y) {
-    int ans = 0;
-
-    for(int i = 0; i < (int)a[y].size(); i++) {
-        if(search(x,y,i)) ans = i+1;
-    }
-
-
-   return ans;
-}
-
-void buildMaxEqual() {
-    for(int i = 0; i < 3; i++)
-        for(int j = 1; j < 3; j++) {
-            maxEqual[i][(i+j)%3] = bind(i, (i+j)%3);
-        }
-}
-
-int best() {
-    vector<int> perm = {0,1,2};
-    int ans = 0;
-
-
+int solve() {
+    string x = "012";
+    int ans = INF;
     do {
-        ans = max(ans, maxEqual[perm[0]][perm[1]] + maxEqual[perm[1]][perm[2]]);
-    } while(next_permutation(perm.begin(), perm.end()));
+        ans = min(ans, calc(a[x[0]-'0'], a[x[1]-'0'], a[x[2]-'0']));
+    } while(next_permutation(x.begin(), x.end()));
 
-    if(maxEqual[0][1] == a[1].size()) ans = max(ans, (int)a[1].size() + maxEqual[0][2]);
-    if(maxEqual[0][2] == a[2].size()) ans = max(ans, (int)a[2].size() + maxEqual[0][1]);
-    if(maxEqual[1][0] == a[0].size()) ans = max(ans, (int)a[0].size() + maxEqual[1][2]);
-    if(maxEqual[1][2] == a[2].size()) ans = max(ans, (int)a[2].size() + maxEqual[1][0]);
-    if(maxEqual[2][0] == a[0].size()) ans = max(ans, (int)a[0].size() + maxEqual[2][1]);
-    if(maxEqual[2][0] == a[1].size()) ans = max(ans, (int)a[1].size() + maxEqual[2][0]);
-
-    return (a[0].size() + a[1].size() + a[2].size() - ans);
+    return ans;
 }
-
+ 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0); cout.tie(0);
-
-    //while(cin >> a[0]) {
-        cin >> a[0];
+    ios_base::sync_with_stdio(false);
+    while(cin >> a[0]) {
         cin >> a[1] >> a[2];
-        v[0] = build(0);
-        v[1] = build(1);
-        v[2] = build(2);
-        buildMaxEqual();
-        cout << best() << endl;
-    //}
-
-
+        h = a[0].size() + a[1].size() + a[2].size();
+        cout << solve() << endl;
+    }
     return 0;
 }
 
