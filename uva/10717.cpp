@@ -26,7 +26,7 @@ int main() {
         for(int i = 0; i < n; i++) cin >> coins[i];
         lcm.clear();
 
-        for(int i = 0; i+3 < n; i++) { 
+        for(int i = 0; i+3 < n; i++) {
             ll z = coins[i];
             for(int j = i+1; j+2 < n; j++) {
                 ll x = (z*coins[j])/__gcd(z,coins[j]);
@@ -44,7 +44,7 @@ int main() {
             cin >> x;
             ans = 0;
             ans2 = ((x)/lcm[0]) * lcm[0] + lcm[0];
-            for(int i = 0; i < lcm.size(); i++) { 
+            for(int i = 0; i < lcm.size(); i++) {
                 z = (x/lcm[i]) * lcm[i];
                 ans = max(ans,z);
                 if(z < x) z += lcm[i];
