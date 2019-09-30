@@ -13,7 +13,7 @@ typedef pair<int,int> ii;
 typedef vector< pair<int,int> > vii;
 const int INF = 0x3f3f3f3f;
 
-const int T = 4e5 + 4;
+const int T = 4e5 + 10;
 int v[T];
 int acum[T];
 vector<int> ve;
@@ -25,18 +25,18 @@ int32_t main() {
     cin >> n >> w;
     w *= 8;
     k = w/n;
-    k = pow(2,k);
-    
+    k = pow(2,min(19ll,k));
+    k = min(k,T-1);
 
     for(int i = 0; i < n; i++) { cin >> v[i]; ve.pb(v[i]); }
     sort(ve.begin(), ve.end());
     ve.resize(unique(ve.begin(),ve.end()) - ve.begin());
     for(int i = 0; i < (int)ve.size(); i++) id[ve[i]] = i+1;
     for(int i = 0; i < n; i++) acum[id[v[i]]]++;
-    for(int i = 1; i <= ve.size(); i++) acum[i] += acum[i-1];
+    for(int i = 1; i < T; i++) acum[i] += acum[i-1];
 
     int best = 0; 
-    for(int i = 1; i+k-1 <= ve.size(); i++) best = max(best, acum[i+k-1]-acum[i-1]);
+    for(int i = 1; i+k-1 < T; i++) best = max(best, acum[i+k-1]-acum[i-1]);
     cout << n-best << endl;
 
     return 0;
