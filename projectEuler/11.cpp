@@ -12,7 +12,7 @@ typedef pair<int,int> ii;
 typedef vector< pair<int,int> > vii;
 const int INF = 0x3f3f3f3f;
 
-int mov[4][2] = { {-1,0}, {0,1}, {1,1}, {-1,1} };
+int mov[4][2] = { {-1,0}, {0,1}, {-1,-1}, {-1,1} };
 ll mat[20][20];
 
 bool isIn(int i, int j) {
@@ -22,10 +22,12 @@ bool isIn(int i, int j) {
 ll solve(int x, int y) {
     ll ans = 0;
     for(int i = 0; i < 4; i++) {
-        ll ok = 1;
-        for(int j = 0; j < 4; j++) {
-            int ii = x + mov[i][0];
-            int jj = y + mov[i][1];
+        ll ok = mat[x][y];
+        int ii = x;
+        int jj = y;
+        for(int j = 0; j < 3; j++) {
+            ii += mov[i][0];
+            jj += mov[i][1];
             if(isIn(ii,jj)) ok *= mat[ii][jj];
             else ok = 0;
         }
@@ -36,8 +38,8 @@ ll solve(int x, int y) {
  
 int main() {
     ios_base::sync_with_stdio(false);
-    for(int i = 0; i < 20; i++)
-        for(int j = 0; j < 20; j++)
+    for(int i = 0; i < 20; i++) 
+        for(int j = 0; j < 20; j++) 
             cin >> mat[i][j];
     
     ll ans = 0;
