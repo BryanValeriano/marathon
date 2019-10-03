@@ -127,7 +127,7 @@ ll query(int node, ll i, ll j) {
     int mid = (i+j) >> 1;
     ll w = query(2*node,i,mid);
     ll z = query(2*node+1,mid+1,j);
-    ll y = (a <= i and b <= j? twoP(node,i,j,max(a,i),min(b,j)) : 0);
+    ll y = (a <= mid and b > mid? twoP(node,i,j,max(a,i),min(b,j)) : 0);
     return max({w,z,y});
 }
 
@@ -136,7 +136,7 @@ int main() {
     int q,op; cin >> n >> q;
     for(int i = 1; i <= n; i++) cin >> v[i];
     for(int i = 1; i < n; i++) ve[i] = lcp(v[i].size(),v[i+1].size(),i,i+1);
-    build(1,1,n-1);
+    if(n > 1) build(1,1,n-1);
 
     while(q--) {
         cin >> op >> a;
@@ -148,11 +148,11 @@ int main() {
             cin >> v[a];
             ve[a] = lcp(v[a].size(), v[a+1].size(), a,a+1);
             b = a;
-            update(1,1,n-1);
+            if(n > 1) update(1,1,n-1);
             if(a > 1) {
                 ve[a-1] = lcp(v[a-1].size(), v[a].size(), a-1,a);
                 b--; a--;
-                update(1,1,n-1);
+                if(n > 1) update(1,1,n-1);
             }
         }
     }
