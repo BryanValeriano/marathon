@@ -18,7 +18,7 @@ const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
 
 const int T = 1e4 + 3;
-const int N = 602;
+const int N = 105;
 
 int n,h;
 bitset<T> slp;
@@ -60,8 +60,8 @@ int dijkstra() {
         int d,s,u;
         tie(d,s,u) = at;
 
-        if(vis[u][s]) continue;
-        vis[u][s] = 1;
+        if(vis[u][d]) continue;
+        vis[u][d] = 1;
         if(u == n) return d;
 
         for(ii v : g[u]) {

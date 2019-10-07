@@ -171,12 +171,12 @@ int main() {
                 update(1,1,n);
             }
             a = in[query[i].se]+1;
-            b = out[query[i].se]; 
+            b = out[query[i].se];
             cout << (a <= b? que(1,1,n) : 0) << endl;
             x++;
         }
     }
-                
+
     return 0;
 }
 

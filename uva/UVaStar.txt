@@ -32,8 +32,8 @@
 10449 // bellman ford
 494   // string adhoc
 11597 // bobo
-11635
-11858
+11635 // dijkstra, implementei meio lento... tem melhor
+11858 // counting inversion
 10058
 11581
 551

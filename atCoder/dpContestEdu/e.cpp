@@ -19,17 +19,17 @@ ll dp[V];
 ll p[N];
 ll v[N];
 ll n,w;
- 
+
 int main() {
     ios_base::sync_with_stdio(false);
     for(int i = 0; i < V; i++) dp[i] = INF;
 
     cin >> n >> w;
     for(int i = 0; i < n; i++) cin >> p[i] >> v[i];
-    
+
     dp[0] = 0;
 
-    for(int i = 0; i < n; i++) 
+    for(int i = 0; i < n; i++)
         for(ll j = V-1; j-v[i] >= 0; j--)
             dp[j] = min(dp[j], dp[j-v[i]]+p[i]);
 
