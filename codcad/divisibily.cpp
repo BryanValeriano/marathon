@@ -41,7 +41,7 @@ bool check(int num, string s) {
 int main() {
     ios::sync_with_stdio(false);
     string s; cin >> s;
-    cout << (check(11,s)? "S" : "N") << endl;
+    cout << (check(2,s)? "S" : "N") << endl;
     return 0;
 }
 
