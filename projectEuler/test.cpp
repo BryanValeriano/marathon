@@ -18,15 +18,15 @@ typedef pair<int, int> ii;
 
 const int N = 4e5 + 5;
 const int S = 1, T = N;
- 
+
 struct edge {
 	int a, b, cap, flow;
 };
- 
+
 int d[N], ptr[N], q[N];
 vector<edge> e;
 vector<int> g[N];
- 
+
 void add(int a, int b, int cap) {
 	edge e1 = { a, b, cap, 0 };
 	edge e2 = { b, a, 0, 0 };
@@ -35,7 +35,7 @@ void add(int a, int b, int cap) {
 	g[b].push_back ((int) e.size());
 	e.push_back (e2);
 }
- 
+
 bool bfs(int s, int t) {
 	int qh=0, qt=0;
 	q[qt++] = s;
@@ -54,7 +54,7 @@ bool bfs(int s, int t) {
 	}
 	return d[t] != -1;
 }
- 
+
 int dfs (int v, int flow, int t) {
 	if (!flow)  return 0;
 	if (v == t)  return flow;
@@ -71,10 +71,10 @@ int dfs (int v, int flow, int t) {
 	}
 	return 0;
 }
- 
+
 int dinic(int s, int t) {
 	int flow = 0;
-    while(bfs(s, t)) { 
+    while(bfs(s, t)) {
 		memset (ptr, 0, sizeof ptr);
 		while (int pushed = dfs (s, INF, t)) flow += pushed;
 	}
@@ -92,7 +92,7 @@ int32_t main (void) {
         add(b,a,c);
     }
 
-    cout << dinic(1,n) << endl; 
+    cout << dinic(1,n) << endl;
 
 	return 0;
 }
