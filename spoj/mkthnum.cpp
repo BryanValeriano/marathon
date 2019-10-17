@@ -31,7 +31,7 @@ void build(int node, int i, int j) {
 
 void query(int node, int i, int j) {
     if(i > b or j < a) return;
-    if(i >= a and j <= b){ 
+    if(i >= a and j <= b){
         ans[cont+1].resize(ans[cont].size() + seg[node].size());
         merge(ans[cont].begin(), ans[cont].end(), seg[node].begin(), seg[node].end(), ans[cont+1].begin());
         cont++;
