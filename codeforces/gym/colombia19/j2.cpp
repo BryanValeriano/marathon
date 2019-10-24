@@ -11,33 +11,32 @@ using namespace std;
 typedef long long ll;
 typedef pair<int,int> ii;
 typedef vector< pair<int,int> > vii;
-const ll INF = 0x3f3f3f3f3f3f;
+const ll INF = 1e13;
 
 const int T = 1e5 + 5;
 ll v[T];
 ll seg[4*T];
 ll lazy[4*T];
 ll small[4*T];
-ll big[4*T];
+ll num[4*T];
 ll a,b,val;
 int n,q;
 
 void build(int node, int i, int j) {
-    if(i == j) seg[node] = small[node] = big[node] = v[i];
+    if(i == j) seg[node] = small[node] = v[i], num[node] = 1;
     else {
         int mid = (i+j) >> 1;
         build(2*node,i,mid);
         build(2*node+1,mid+1,j);
         small[node] = min(small[2*node],small[2*node+1]);
-        big[node] = max(big[2*node],big[2*node+1]);
+        num[node] = num[2*node] + num[2*node+1];
         seg[node] = seg[2*node] + seg[2*node+1];
     }
 }
 
 void prop(int node, int i, int j) {
-    if(!lazy[node]) return;
-    seg[node] = max(0ll, seg[node] - (ll)(j-i+1)*lazy[node]);
-    big[node] = max(0ll, big[node] - lazy[node]);
+    if(!lazy[node] or !num[node]) return;
+    seg[node] = max(0ll, seg[node] - num[node]*lazy[node]);
     small[node] = max(0ll, small[node] - lazy[node]);
 
     if(i != j) {
@@ -50,24 +49,22 @@ void prop(int node, int i, int j) {
 
 void update(int node, int i, int j) {
     prop(node,i,j);
-    if(i > b or j < a) return;
+    if(i > b or j < a or !num[node]) return;
     if(i >= a and j <= b) {
-        if(big[node] <= val or small[node] >= val) { lazy[node] += val; prop(node,i,j); return; }
-    } else if(i == j) {
-        seg[node] = small[node] = big[node] = 0;
-        return;
+        if(small[node] >= val) { lazy[node] += val; prop(node,i,j); return; }
+        else if(i == j) { seg[node] = num[node] = 0, small[node] = INF; return; }
     }
     int mid = (i+j) >> 1;
     update(2*node,i,mid);
     update(2*node+1,mid+1,j);
     small[node] = min(small[2*node],small[2*node+1]);
-    big[node] = max(big[2*node],big[2*node+1]);
+    num[node] = num[2*node] + num[2*node+1];
     seg[node] = seg[2*node] + seg[2*node+1];
 }
 
 ll query(int node, int i, int j) {
     prop(node,i,j);
-    if(i > b or j < a) return 0;
+    if(i > b or j < a or !num[node]) return 0;
     if(i >= a and j <= b) return seg[node];
     int mid = (i+j) >> 1;
     return query(2*node,i,mid) + query(2*node+1,mid+1,j);
