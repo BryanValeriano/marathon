@@ -21,13 +21,13 @@ int main() {
     while(cin >> x) {
         n++;
         v[n] = x;
-        if(n&1) { 
-            nth_element(v+1,v+(n/2)+1,v+n+1); 
+        if(n&1) {
+            nth_element(v+1,v+(n/2)+1,v+n+1);
             cout << v[(n/2)+1] << endl;
         } else {
-            nth_element(v+1,v+(n/2),v+n+1); 
+            nth_element(v+1,v+(n/2),v+n+1);
             ll a = v[n/2];
-            nth_element(v+1,v+(n/2)+1,v+n+1); 
+            nth_element(v+1,v+(n/2)+1,v+n+1);
             ll b = v[(n/2)+1];
             cout << (a+b)/2 << endl;
         }

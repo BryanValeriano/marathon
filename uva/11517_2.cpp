@@ -26,7 +26,7 @@ int main() {
         dp[0] = 0;
         for(int i = 0; i < n; i++) cin >> v[i];
         for(int i = 0; i < n; i++)
-            for(int j = 30001; j >= 0; j--) 
+            for(int j = 30001; j >= 0; j--)
                 if(dp[j] < INF) dp[j + v[i]] = min(dp[j + v[i]], dp[j] + 1);
         for(int i = gol; i < N; i++)
             if(dp[i] != INF) { cout << i << " " << dp[i] << endl; break; }
