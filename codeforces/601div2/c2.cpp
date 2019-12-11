@@ -39,7 +39,7 @@ int main() {
                 g[mk(a[j],a[k])]++;
                 g[mk(a[k],a[j])]++;
 
-                
+
             }
         }
     }
@@ -58,7 +58,7 @@ int main() {
             d[k].pb(j);
         }
     }
-    
+
     int ini = 0;
     int fim = 0;
 
@@ -68,7 +68,7 @@ int main() {
             else fim = i;
         }
     }
-    
+
     freq[ini]--;
     queue<int> lista;
     lista.push(ini);
