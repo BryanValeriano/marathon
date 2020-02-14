@@ -15,22 +15,29 @@ const int INF = 0x3f3f3f3f;
 const int T = 505;
 int g[T][T];
 int r,c;
- 
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin >> r >> c;
 
-    if(r == 1 or c == 1) {
+    if(r == 1 and c == 1) {
         cout << 0 << endl;
         return 0;
     }
 
-    for(int i = 1; i <= r; i++) {
-        for(int j = r+1; j <= r+c; j++)  
-            cout << i*j<< " ";
+    if(r == 1) {
+        for(int i = 2; i <= c+1; i++) cout << i << " ";
         cout << endl;
     }
-    
+    else if(c == 1) for(int i = 2; i <= r+1; i++) cout << i << endl;
+    else {
+        for(int i = 1; i <= r; i++) {
+            for(int j = r+1; j <= r+c; j++)
+                cout << i*j<< " ";
+            cout << endl;
+        }
+    }
+
     return 0;
 }
 
