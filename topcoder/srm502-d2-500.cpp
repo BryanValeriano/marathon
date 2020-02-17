@@ -18,7 +18,7 @@ public:
     bool isPrefix(string a, string b) {
         if(a.size() > b.size()) return false;
 
-        for(int i = 1; i <= a.size(); i++) 
+        for(int i = 1; i <= a.size(); i++)
             if(a[a.size()-i] != b[b.size()-i])
                 return false;
 
@@ -40,12 +40,12 @@ public:
 
         sort(goodSuffixes.begin(), goodSuffixes.end(), [&] (const string &a, const string &b) {return a.size() < b.size();});
 
-        for(int i = 0; i < goodSuffixes.size(); i++) 
-            for(int j = i+1; j < goodSuffixes.size(); j++) 
+        for(int i = 0; i < goodSuffixes.size(); i++)
+            for(int j = i+1; j < goodSuffixes.size(); j++)
                 if(isPrefix(goodSuffixes[i], goodSuffixes[j]))
                     vis[j] = false;
 
-        for(int i = 0; i < goodSuffixes.size(); i++) 
+        for(int i = 0; i < goodSuffixes.size(); i++)
             if(vis[i]) ans += size[goodSuffixes[i].size()];
 
         return ans;

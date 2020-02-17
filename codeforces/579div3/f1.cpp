@@ -18,7 +18,10 @@ void fu() {
     exit(0);
 }
 
- 
+bool cmp(const ii &a, const ii &b) {
+    return a.fi - b.se > b.fi - a.se;
+}
+
 int32_t main() {
     ios_base::sync_with_stdio(false);
     int n,r; cin >> n >> r;
@@ -29,11 +32,11 @@ int32_t main() {
         int x,y;
         cin >> x >> y;
         if(y >= 0) pos.eb(x,y);
-        else neg.eb(x,y);
+        else neg.eb(max(x,-y),y);
     }
 
     sort(pos.begin(), pos.end());
-    sort(neg.begin(), neg.end(), greater<ii>());
+    sort(neg.begin(), neg.end(), cmp);
 
     for(int i = 0; i < pos.size(); i++) {
         if(r < pos[i].fi) fu();
@@ -45,8 +48,8 @@ int32_t main() {
         else r += neg[i].se;
         if(r < 0) fu();
     }
-    
+
     cout << "YES" << endl;
-    
+
     return 0;
 }

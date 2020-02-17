@@ -1,28 +1,14 @@
 #include <bits/stdc++.h>
-#include "srm502-d2-500.cpp"
-
-using namespace std;
-
-#define pb push_back
-#define mk make_pair
-#define fi first
-#define se second
-#define eb emplace_back
-
-typedef long long ll;
-typedef pair<int,int> ii;
-typedef vector< pair<int,int> > vii;
-//const int INF = 0x3f3f3f3f;
+//#include "srm502-d1-lvl2.cpp"
 
 
 int main() {
-    ios::sync_with_stdio(false);
-    vector<string> s;
-    s = {"8542861", "1954", "6", "523", "000000000", "5426", "8"};
+    TheProgrammingContestDivOne tmp;
+    vector<int> a = {100000,100000};
+    vector<int> b = {1,100000};
+    vector<int> c = {50000,30000};
 
-    TheLotteryBothDivs kk = TheLotteryBothDivs();
-    cout << fixed << setprecision(9);
-    cout << kk.find(s) << endl;
+    cout <<  tmp.find(40000, a, b, c) << endl;
 
     return 0;
 }
