@@ -31,7 +31,7 @@ ll exp(ll base, ll e) {
 void prop(int node, int i, int j) {
     if(lazy[node] != -1) return;
     seg[node] = 0;
-    if(i != j) 
+    if(i != j)
         lazy[2*node] = lazy[2*node+1] = lazy[node];
     lazy[node] = 0;
 }
@@ -65,14 +65,14 @@ int main() {
         char oper;
         while(n--) {
             cin >> oper >> a >> v;
-            if(oper == 'E') update(1,1,l); 
+            if(oper == 'E') update(1,1,l);
             else {
                 ll tmp = query(1,1,l);
                 ll aux = exp(b,l-v);
                 aux = exp(aux, p-2);
                 cout << (tmp*aux) % p << endl;
             }
-        }    
+        }
         cin >> b >> p >> l >> n;
         cout << "-" << endl;
     }
