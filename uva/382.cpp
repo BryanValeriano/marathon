@@ -14,7 +14,7 @@ const int INF = 0x3f3f3f3f;
 
 string solve(int n) {
     int ans = 0;
-    for(int i = 1; i < n; i++) 
+    for(int i = 1; i < n; i++)
         if(n % i == 0) ans += i;
     if(ans < n) return "DEFICIENT";
     if(ans > n) return "ABUNDANT";

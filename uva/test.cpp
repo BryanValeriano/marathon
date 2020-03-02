@@ -14,10 +14,7 @@ const int INF = 0x3f3f3f3f;
 
 int main() {
     ios::sync_with_stdio(false);
-    int a = -10;    
-    int b = 7;
-    cout << a % b << endl;
-
+    for(int i = 2; i < 1e6; i++) cout << i << endl;
     return 0;
 }
 
