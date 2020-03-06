@@ -14,44 +14,46 @@ typedef pair<int,int> ii;
 typedef vector<ii> vii;
 const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
-const int T = 2e3 + 2;
-const ll MOD = 1e9+7;
 
-int d[T];
+const int T = 5e4 + 2;
+const int K = 502;
+
 vector<int> g[T];
-int dist;
-int s;
+ll dist[T][K];
+ll ans;
+int n,k;
 
-ll dfs(int a, int pai) {
-    ll ans = 1;
+void dfs(int u, int pai) {
+    dist[u][0] = 1;
 
-    for(int v : g[a]) {
+    for(int v : g[u]) {
         if(v == pai) continue;
-        if(d[v] == d[s] and v < s) continue;
-        if(d[v] >= d[s] and d[v] - d[s] <= dist)
-            ans = (ans * (dfs(v,a)+1)) % MOD;
+        dfs(v,u);
+
+        for(int i = 0; i < k; i++)
+            if(dist[v][i] and k-i-1 > 0)
+                ans += (dist[v][i] * dist[u][k-i-1]);
+
+        dist[u][1]++;
+        for(int i = 1; i < k; i++)
+            if(dist[v][i]) dist[u][i+1] += dist[v][i];
     }
 
-    return ans;
+    ans += dist[u][k];
 }
+
 
 int main() {
     ios_base::sync_with_stdio(false);
-    int n;
-    cin >> dist >> n;
-    for(int i = 1; i <= n; i++) cin >> d[i];
+    cin >> n >> k;
 
     for(int i = 0; i < n-1; i++) {
-        int a,b;cin >> a >> b;
+        int a,b; cin >> a >> b;
         g[a].pb(b);
         g[b].pb(a);
     }
 
-    ll ans = 0;
-
-    for(s = 1; s <= n; s++) {
-        ans = (ans + dfs(s,s)) % MOD;
-    }
+    dfs(1,1);
 
     cout << ans << endl;
 
