@@ -1,37 +1,62 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define pb push_back
-#define mk make_pair
-#define fi first
-#define se second
-#define eb emplace_back
-
 typedef long long ll;
-typedef pair<int,int> ii;
-typedef vector< pair<int,int> > vii;
-const int INF = 0x3f3f3f3f;
+const int T = 52;
 
 class MessageMess {
 public:
+    ll dp[T][T];
+    bool ok[T][T];
+    int n;
     unordered_set<string> bag;
-    vector<string> tmp;
-    string ans;
+
+    ll solve(int ini, int at) {
+        ll &r = dp[ini][at];
+
+        if(at == n-1) return r = ok[ini][at];
+        if(~r) return r;
+        r = 0;
+
+        r += solve(ini,at+1);
+        if(ok[ini][at]) r += solve(at+1,at+1);
+        return r;
+    }
+
+    string subs(int ini, int at, const string &s) {
+        string t;
+        for(int i = ini; i <= at; i++) t += s[i];
+        return t;
+    }
+
+    string build(int ini, int at, const string &s) {
+        if(at == n-1) return subs(ini,at,s);
+        if(dp[at+1][at+1] == 1) return subs(ini,at,s) + " " + build(at+1,at+1,s);
+        return build(ini,at+1,s);
+    }
+
+    bool exist(int a, int b, const string &s) {
+        string t = subs(a,b,s);
+        return bag.count(t);
+    }
 
     string restore(vector<string> dictionary, string message) {
-        bool am = prefix(dictionary);
-        for(auto d : dictionary) bag.insert(d);
+        bag.clear();
+        for(auto s : dictionary) bag.insert(s);
+        memset(dp, -1, sizeof dp);
+        n = message.size();
 
-        string x;
-        for(int i = 0; i < message.size(); i++) {  
-            if(bag.count(x)) tmp.pb(x), x = "";
-            x += message[i];
+        for(int i = 0; i < n; i++) {
+            for(int j = i; j < n; j++) {
+                if(exist(i,j,message)) ok[i][j] = 1;
+                else ok[i][j] = 0;
+            }
         }
-        if(bag.count(x)) {
-            tmp.pb(x)
-            return (am? "
 
-
+        ll x = solve(0,0);
+        if(x == 1) return build(0,0,message);
+        else if(x > 1) return "AMBIGUOUS!";
+        return "IMPOSSIBLE!";
     }
 };
 
