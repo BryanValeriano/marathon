@@ -14,17 +14,14 @@ typedef pair<ll,ll> ii;
 typedef vector<ii> vii;
 const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
-const int T = 1e5 + 4;
+const int T = 3e5 + 4;
 const ll MOD = 1e9 + 7;
 
 ll seg[4*T];
-bool isLeft[T];
-bool foi[T];
-ll vis[T];
+map<ll,int> bag;
 ll v[T];
 ll val;
 int a,b;
-vii p;
 int n;
 
 void update(int node, int i, int j) {
@@ -45,61 +42,45 @@ ll query(int node, int i, int j) {
     return (query(2*node,i,mid) + query(2*node+1,mid+1,j)) % MOD;
 }
 
-bool sum(int x, int y) {
-    return v[y]-v[x] >= 0;
-}
-
 int main() {
     ios_base::sync_with_stdio(false);
     cin >> n;
 
+    bag[0] = 1;
     for(int i = 1; i <= n; i++) {
         cin >> v[i];
+        bag[v[i]-v[i-1]] = 1;
         v[i] += v[i-1];
-        p.eb(v[i],i);
-        vis[i] = 1;
+        bag[v[i]] = 1;
     }
-    sort(p.begin(), p.end());
 
-    for(int i = 1; i <= n; i++)
-        if(sum(0,i) and sum(i,n)) isLeft[i] = 1;
+    ll aux = 0;
+    for(map<ll,int>::iterator it = bag.begin(); it != bag.end(); ++it)
+        it->se = aux++;
 
-    int point = 0;
-    ll ans = 0;
+    int zero = bag[0];
+    int maxi = aux;
+    cout << zero << " | " << maxi << endl;
 
-    point = 0;
-    for(auto pi : p) {
-        int up = pi.fi;
-        if(!isLeft[pi.se]) continue;
+    for(int i = 1; i <= n; i++) {
+        int pos = bag[v[i]];
 
-        while(point < n and p[point].fi <= up) {
-            if(isLeft[p[point].se]) {
-                a = b = p[point].se, val = vis[a];
-                update(1,0,n);
-                foi[a] = 1;
-            }
-            point++;
+        if(bag[v[i]-v[i-1]] >= zero) {
+            a = bag[v[i]-v[i-1]], b = maxi;
+            val = max(1ll,query(1,0,maxi));
+            a = b = pos;
+            update(1,0,maxi);
         }
-
-        b = pi.se;
-        a = 0;
-        ll canBeRight = query(1,0,n);
-
-        //cout << " ans " << pi.se << " " << canBeRight << endl;
-        //for(int i = 0; i <= n; i++) {
-        //    a = b = i;
-        //    cout << query(1,0,n) << " ";
-        //}
-        //cout << endl;
-
-        if(pi.se == n) { ans = canBeRight; break; }
-        if(foi[pi.se]) {
-            val = canBeRight;
-            a = b = pi.se;
-            update(1,0,n);
-        } else vis[pi.se] = canBeRight;
+        for(int j = zero; j <= maxi; j++) {
+            a = b = j;
+            cout << query(1,0,maxi) << " ";
+        }
+        cout << endl;
     }
 
-    cout << ans << endl;
+
+    a = zero, b = maxi;
+    cout << query(1,0,n) << endl;
+
     return 0;
 }
