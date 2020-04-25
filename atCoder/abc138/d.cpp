@@ -43,13 +43,13 @@ int main() {
         cin >> a >> b;
         v[a] += b;
     }
-    
+
     for(int i = 1; i <= n; i++) {
         if(!vis[i]) dfs(i);
         cout << v[i] << " ";
     }
     cout << endl;
-    
+
 
     return 0;
 }

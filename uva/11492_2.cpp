@@ -28,7 +28,7 @@ int solve(int atual, char prob) {
         vis[atual] = false;
         return 0;
     }
-    
+
     int &r = dp[atual];
     if(r != -1) {
         vis[atual] = false;
@@ -42,7 +42,7 @@ int solve(int atual, char prob) {
             ans = min(ans, solve(v.fi, v.se[0]) + cust);
         }
     }
-    vis[atual] = false; 
+    vis[atual] = false;
     return ans;
 }
 
@@ -70,7 +70,7 @@ int main() {
         }
         memset(dp, -1, sizeof dp);
         int ans = solve(ori, 'z' + 1);
-        if(ans >= INF-10) cout << "impossivel" << endl; 
+        if(ans >= INF-10) cout << "impossivel" << endl;
         else cout << ans << endl;
         cin >> m;
     }

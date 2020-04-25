@@ -39,7 +39,7 @@ void dfs(int u, int p) {
     for(int v : g[u]) {
         if(vis[v] != vez /* and v != p*/) {
             dfs(v,u);
-            if(low[v] > tin[u]) { 
+            if(low[v] > tin[u]) {
                 if(u < v) pontes.emplace(u,v);
                 else pontes.emplace(v,u);
             }
@@ -52,7 +52,7 @@ int find(int x) {
     return (pai[x] == x? x : pai[x] = find(pai[x]));
 }
 
-void join(int x, int y) { 
+void join(int x, int y) {
     x = find(x);
     y = find(y);
     if(x == y) return;
@@ -66,9 +66,9 @@ void join(int x, int y) {
 void rebuild() {
     for(int i = 0; i < T; i++) g[i].clear();
 
-    for(ii x : arestas)  
+    for(ii x : arestas)
         if((x.fi < x.se and !pontes.count(mk(x.fi,x.se))) or
-            x.se < x.fi and !pontes.count(mk(x.se,x.fi))) 
+            x.se < x.fi and !pontes.count(mk(x.se,x.fi)))
             join(find(x.fi), find(x.se));
 
     for(ii x : pontes) {
@@ -102,7 +102,7 @@ ii best(const ii a, const ii b) {
 ii dfs2(int u, int niv) {
     vis[u] = vez;
     ii ans = mk(u,niv);
-    for(int v : g[u]) 
+    for(int v : g[u])
         if(vis[v] != vez)
             ans = best(ans, dfs2(v, niv+1));
     return ans;

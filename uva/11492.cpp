@@ -15,7 +15,7 @@ typedef pair<int, string> inst;
 typedef vector< pair<int,int> > vii;
 const int INF = 0x3f3f3f3f;
 string ori = "111";
-string dest = "222"; 
+string dest = "222";
 
 map<string, vector<string> > g;
 map<string,ss> pals;
@@ -68,16 +68,16 @@ int main() {
         for(it = pals.begin(); it != pals.end(); it++) {
             it2 = it;
             it2++;
-            for(; it2 != pals.end(); it2++) 
+            for(; it2 != pals.end(); it2++)
                 if(it->fi[0] != it2->fi[0] and isEdge(it, it2)) {
                     g[it->fi].pb(it2->fi);
                     g[it2->fi].pb(it->fi);
                 }
-        }            
-        int ans = dij(); 
+        }
+        int ans = dij();
         if(ans >= INF-10) cout << "impossivel" << endl;
         else cout << ans << endl;
-        cin >> m;   
+        cin >> m;
     }
 
     return 0;

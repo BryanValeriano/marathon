@@ -16,7 +16,7 @@ const int T = 1e3;
 
 string s,t;
 int dp[T][2];
- 
+
 int main() {
     ios_base::sync_with_stdio(false);
     while(cin >> s) {
@@ -37,7 +37,7 @@ int main() {
         int x = (s.size()-1)%2;
         cout << dp[m][x] << endl;
     }
-    
+
     return 0;
 }
 

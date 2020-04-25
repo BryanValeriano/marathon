@@ -34,8 +34,8 @@
 11597 // bobo
 11635 // dijkstra, implementei meio lento... tem melhor
 11858 // counting inversion
-10058
-11581
+10058 -- upsolving
+11581 -- upsolving
 551
 11466
 11391
