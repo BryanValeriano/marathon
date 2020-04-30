@@ -10,15 +10,21 @@ using namespace std;
 typedef long long ll;
 typedef pair<int,int> ii;
 typedef vector< pair<int,int> > vii;
-const int INF = 0x3f3f3f3f;
+const ll INF = 0x3f3f3f3f3f3f3f3f;
 const int T = 1e5 + 10;
-int cost[T];
-int n; string s;
-int h,a,r,d;
+int n,cost[T];
+ll dp[T][5];
+string t = "hard";
+string s;
 
-void solve() {
-    for(int i = 0; i < n; i++) {
-        if(s[i] !
+ll solve(int at, int p) {
+    if(p == 4) return INF;
+    if(at == n) return 0;
+    if(~dp[at][p]) return dp[at][p];
+    ll ok = (s[at]==t[p]);
+    dp[at][p] = min(solve(at+1,p+ok),solve(at+1,p)+cost[at]*ok);
+    return dp[at][p];
+}
 
 void read() {
     cin >> n >> s;
@@ -28,8 +34,9 @@ void read() {
 
 int main() {
     ios::sync_with_stdio(false);
+    memset(dp,-1,sizeof dp);
     read();
-    solve();
+    cout << solve(0,0);
     return 0;
 }
 

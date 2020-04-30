@@ -11,52 +11,60 @@ using namespace std;
 
 typedef long long ll;
 typedef pair<int,int> ii;
+typedef tuple<int,int,int,int> ti;
+typedef vector<ti> vti;
 typedef vector<ii> vii;
-const int INF = 0x3f3f3f3f;
-const double PI = acos(-1.0);
-const int T = 1e5 + 4;
 
-string s;
-string p;
-int z[T];
-int pi[T];
-int ans[T];
-vii v;
-
-void go() {
-    int l = 0, r = 0;
-    int n = s.size();
-
-    for(int i = 1; i < n; i++) {
-        if(i <= r) z[i] = min(z[i-1], r-i+1);
-        while(z[i] + i < n and s[z[i] + i] == s[z[i]]) z[i]++;
-        if(r < i + z[i] - 1) l = i, r = i + z[i] - 1;
-    }
-
-    for(int i = 0; i < n; i++) cout << z[i] << " ";
-    cout << endl;
-}
-
-void go2() {
-    string p = s + "#";
-
-    for(int i = 2; i <= p.size(); i++) {
-        pi[i] = pi[i-1];
-        while(pi[i] > 0 and p[pi[i]] != p[i-1]) pi[i] = pi[pi[i]];
-        if(p[pi[i]] == p[i-1]) pi[i]++;
-    }
-
-    for(int i = 0; i <= p.size(); i++) cout << pi[i] << " ";
-    cout << endl;
-}
-
-
+const int T = 1e3 + 3;
+int v[T][T];
+ii id[T][T];
+vti aux[T][T];
+int n,m,q;
 
 int main() {
     ios_base::sync_with_stdio(false);
-    cin >> s;
-    go();
-    go2();
+    cin >> n >> m >> q;
+
+    for(int i = 1; i <= n; i++)
+        for(int j = 1; j <= m; j++)
+            cin >> v[i][j];
+
+    while(q--) {
+        int a,b,c,d,h,w;
+        cin >> a >> b >> c >> d >> h >> w;
+        for(int i = 0; i < h; i++) {
+            aux[a+i][b].eb(c+i,d,b,q+1);
+            aux[a+i][b+w].eb(c+i,d,b,-(q+1));
+            aux[c+i][d].eb(a+i,b,d,q+1);
+            aux[c+i][d+w].eb(a+i,b,d,-(q+1));
+        }
+    }
+
+    set<ti> bag;
+    for(int i = 1; i <= n; i++) {
+        int ni,nj,start,q;
+        for(int j = 1; j <= m; j++) {
+            while(!aux[i][j].empty()) {
+                tie(ni,nj,start,q) = aux[i][j].back();
+                if(q<0) bag.erase(make_tuple(-q,ni,nj,start));
+                else bag.emplace(q,ni,nj,start);
+                aux[i][j].pop_back();
+            }
+            if(bag.empty()) id[i][j] = mk(i,j);
+            else {
+                tie(q,ni,nj,start) = *bag.begin();
+                id[i][j] = mk(ni,nj+(j-start));
+            }
+        }
+        while(!aux[i][m+1].empty()) {
+            tie(ni,nj,start,q) = aux[i][m+1].back();
+            if(q<0) bag.erase(make_tuple(-q,ni,nj,start));
+            else bag.emplace(q,ni,nj,start);
+            aux[i][m+1].pop_back();
+        }
+    }
+
+
     return 0;
 }
 

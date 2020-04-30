@@ -11,22 +11,24 @@ typedef long long ll;
 typedef pair<int,int> ii;
 typedef vector< pair<int,int> > vii;
 const int INF = 0x3f3f3f3f;
+const int T = 182;
 
 
 int main() {
     ios::sync_with_stdio(false);
-    int x, q;
-    cin >> q;
-    while(q--) {
-        cin >> x;
-        bool flag = true;
-        for(int i = 3; i <= 180; i++) {
-            if(360 % i != 0) continue;
-            int lado = 360/i;
-            if(lado == x) { cout << i << endl; flag = false; break; }
-            if(lado < x and lado % (x % lado) == 0) { cout << i << endl; flag = false; break; }
+    vector<int> ans(T,0);
+
+    for(int i = 3; i <= 180; i++) {
+        for(int j = 1; j <= i-2; j++) {
+            if((180*j)%i) continue;
+            if(!ans[(180*j)/i]) ans[(180*j)/i] = i;
         }
-        if(flag) cout << -1 << endl; 
+    }
+
+    int q; cin >> q;
+    while(q--) {
+        int x; cin >> x;
+        cout << (ans[x]?ans[x]:360) << endl;
     }
     return 0;
 }
