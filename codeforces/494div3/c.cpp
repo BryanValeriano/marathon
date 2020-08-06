@@ -15,32 +15,22 @@ typedef vector<ii> vii;
 const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
 
-const int T = 1e7+2;
-int v[T];
-
 int main() {
     ios_base::sync_with_stdio(false);
-    int n; cin >> n;
+    int n,k; cin >> n >> k;
+    vector<int> v(n);
     for(int i = 0; i < n; i++) cin >> v[i];
-    int l = 0;
-    int r = 1;
-    while(r < n) {
-        if(v[l] != v[r]) l++, r++;
-        else {
-            l++;
-            r++;
-            while(r < n and v[l] == v[r]) r++;
-            if(r < n) {
-                swap(v[l],v[r]);
-                l++;
-                if(l==r) r++;
-            }
+
+    double best = 0;
+    for(int i = 0; i < n; i++) {
+        double sum = 0;
+        for(int j = i; j < n; j++) {
+            sum += v[j];
+            if(j-i+1 >= k) best = max(best,sum/(j-i+1));
         }
     }
 
-    for(int i = 0; i < n; i++) cout << v[i] << " ";
-    cout << endl;
-
+    cout << fixed << setprecision(6) << best << endl;
 
     return 0;
 }

@@ -14,33 +14,18 @@ typedef pair<int,int> ii;
 typedef vector<ii> vii;
 const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
-
-const int T = 1e7+2;
-int v[T];
+const int T = 1e5+2;
+ll v[T];
 
 int main() {
     ios_base::sync_with_stdio(false);
     int n; cin >> n;
     for(int i = 0; i < n; i++) cin >> v[i];
-    int l = 0;
-    int r = 1;
-    while(r < n) {
-        if(v[l] != v[r]) l++, r++;
-        else {
-            l++;
-            r++;
-            while(r < n and v[l] == v[r]) r++;
-            if(r < n) {
-                swap(v[l],v[r]);
-                l++;
-                if(l==r) r++;
-            }
-        }
-    }
+    sort(v,v+n);
 
-    for(int i = 0; i < n; i++) cout << v[i] << " ";
-    cout << endl;
-
+    ll wat = v[n-1];
+    for(int i = 0; i < n-1; i++) wat -= v[i];
+    cout << max(0ll,wat+1) << endl;
 
     return 0;
 }

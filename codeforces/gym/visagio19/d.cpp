@@ -55,7 +55,7 @@ void dfs(int u) {
             low[u] = min(low[u], low[v]);
         } else low[u] = min(low[u], d[v]);
     }
-    
+
     if(low[u] >= d[u]) {
         int a;
         do {
@@ -90,7 +90,7 @@ int main() {
         edg.eb(a,b);
     }
 
-    for(int i = 1; i <= n; i++) 
+    for(int i = 1; i <= n; i++)
         if(d[i] == 0) dfs(i);
 
     for(int i = 0; i <= n; i++) g[i].clear();
@@ -104,15 +104,15 @@ int main() {
     }
 
     for(int i = 1; i <= n; i++) bag[find(i)].insert(i);
-   
+
     memset(d, 0, sizeof d);
 
-    for(int i = 1; i <= n; i++) 
+    for(int i = 1; i <= n; i++)
         if(in[find(i)] == 0 and d[i] == 0)
             dfs2(find(i));
-   
+
     for(int i = 1; i <= n; i++) cout << ans[find(i)] << endl;
-    
+
     return 0;
 }
 
