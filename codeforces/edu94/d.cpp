@@ -27,43 +27,41 @@ void pre() {
             choose[i][j] = choose[i-1][j-1] + choose[i-1][j];
 }
 
-void build(vector<int> &preB, vector<int> &a, vector<int> &b) {
+vector<int> build(vector<int> &a, vector<int> &b) {
+    int n = a.size(), m = b.size();
+    vector<int> preB(m,0);
     int l = 0, r = 0;
-    int n = a.size();
-    int m = b.size();
-
-    while(l < n and r < m) {
-        if(r) preB[r] = preB[r-1];
-        while(l+1 < n and a[l] < b[r]) l++;
-        preB[r] += l;
+    while(r < m) {
+        while(l < n and a[l] <= b[r]) l++;
+        preB[r] = l+(r?preB[r-1]:0);
         r++;
     }
+    return preB;
+}
+
+ll inter(vector<int> &preB, int r, int l) {
+    ll cut = preB[l];
+    ll shit = (preB[l]-(l?preB[l-1]:0))*(r-l);
+    return preB[r]-cut-shit;
 }
 
 ll calc(vector<int> &a, vector<int> &b) {
-    int i,j,k,l;
-    i = j = 0;
-    k = l = 1;
+    int j = 0;
     int n = a.size();
     int m = b.size();
+    if(!n or !m) return 0;
+
+    //b vai ser j,l
+    vector<int> preB = build(a,b);
     ll ans = 0;
 
-    vector<int> preB(b.size(),0);
-    build(preB, a, b);
-
-    while(max(j,l) < m and max(i,k) < n) {
-        while(i+1 < n and a[i+1] < b[j]) i++;
-        while(k+1 < n and a[k] < b[j]) k++;
-        while(l+1 < m and b[l] < a[k]) l++;
-        if(a[i] < b[j] and b[j] < a[k] and a[k] < b[l]) {
-            cout << a[i] << " " << b[j] << " " << a[k] << " " << b[l] << " = ";
-
-            cout << (i+1)*(preB[m-1]-preB[j]) << endl;
-            ans += (i+1)*(preB[m-1]-preB[j]);
-            cout << (preB[m-1]-preB[j]) << endl;
-        }
-        j = max(l,j+1);
+    while(j < m) {
+        ll is = preB[j]-(j?preB[j-1]:0);
+        ll ks = inter(preB,m-1,j);
+        ans += is*ks;
+        j++;
     }
+
     return ans;
 }
 
@@ -83,7 +81,7 @@ int main() {
             ans += choose[g[i].size()][4];
             for(int j = 1; j <= n; j++) {
                 if(i == j) continue;
-                //cout << i << " " << j << " = " << calc(g[i],g[j]) << endl;
+//                cout << i << " " << j << " = " << calc(g[i],g[j]) << endl;
                 ans += calc(g[i],g[j]);
             }
         }

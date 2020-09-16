@@ -6,8 +6,9 @@ int main() {
     int x,y;
     while(q--) {
         cin >> x >> y;
-        int ans = n/max(x,y);
-        if(n % max(x,y) >= min(x,y)) ans++;
+        if(x < y) swap(x,y);
+        int ans = n/x;
+        if(n%x >= y) ans++;
         cout << ans << endl;
     }
 }

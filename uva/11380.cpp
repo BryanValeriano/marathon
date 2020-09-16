@@ -112,7 +112,7 @@ void read() {
                     int jj = j + mov[k][1];
                     if(isIn(ii,jj)) add(id(i,j) + GHST, id(ii,jj), 1);
                 }
-            } 
+            }
 
             else if(c == '@' or c == '#') {
                 for(int k = 0; k < 4; k++) {
@@ -121,7 +121,7 @@ void read() {
                     if(isIn(ii,jj)) add(id(i,j), id(ii,jj), INF);
                 }
                 if(c == '#') add(id(i,j), T, z);
-            } 
+            }
         }
     }
 }
