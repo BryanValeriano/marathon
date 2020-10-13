@@ -13,23 +13,15 @@ typedef pair<int,int> ii;
 typedef vector<ii> vii;
 const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
-const int T = 4e3+2;
-int t[T], dp[T];
 
 int main() {
     ios_base::sync_with_stdio(false);
-    memset(dp,INF,sizeof dp);
-    int n; cin >> n;
-    dp[0] = 0;
-
-    for(int i = 1; i <= n; i++) {
-        cin >> t[i];
-        for(int k = 1; k <= i; k++)
-            dp[i] = min(dp[i], dp[i-k] + max(t[i]-t[i-k+1]-1800+20,20*k)+120);
-        cout << dp[i] << endl;
+    int tc; cin >> tc;
+    while(tc--) {
+        int x,n,m; cin >> x >> n >> m;
+        while(n and x/2 + 10 <= x) n--, x = x/2 + 10;
+        cout << (x/10+(x%10?1:0) <= m? "YES" : "NO") << endl;
     }
-
-    cout << dp[n] << endl;
     return 0;
 }
 

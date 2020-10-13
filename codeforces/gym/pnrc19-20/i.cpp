@@ -13,8 +13,7 @@ typedef pair<int,int> ii;
 typedef vector<ii> vii;
 const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
-const double eps = 1e-7;
-const int N = 2e5 + 5;
+const int N = 5e5 + 5;
 const int S = N-2, T = N-1;
 
 struct edge {
@@ -81,50 +80,64 @@ int dinic(int s, int t) {
 	return flow;
 }
 
-const int Z = 255;
-int n,b,r;
-ll bx[Z], by[Z], rx[Z], ry[Z];
-double di[Z][Z];
+const int Z = 505;
+bool col[Z], vis[Z];
+vector<int> h[Z];
+map<string,int> bag;
+vector<string> v;
+int cont;
 
-bool check(double dist) {
-    e.clear();
-    for(int i = 0; i < N; i++) g[i].clear();
-    for(int i = 0; i < b; i++) add_edge(S,i,1);
-    for(int i = 0; i < r; i++) add_edge(i+Z,T,1);
+void bip(int u, bool ok) {
+    vis[u] = 1;
+    col[u] = ok;
+    for(int v : h[u])
+        if(!vis[v])
+            bip(v,!ok);
+}
 
-    for(int i = 0; i < b; i++)
-        for(int j = 0; j < r; j++) {
-            if(di[i][j] < dist+eps) {
-                add_edge(i,j+Z,1);
-            }
-        }
+int id(string s) {
+    if(!bag.count(s)) bag[s] = ++cont;
+    return bag[s];
+}
 
-    int mvc = dinic(S,T);
-    return(b+r-mvc >= n);
+int hamming(string s, string t) {
+    int ans = 0;
+    for(int i = 0; i < s.size(); i++)
+        ans += (s[i] != t[i]);
+    return ans;
 }
 
 int main() {
     ios_base::sync_with_stdio(false);
-    cin >> n >> b >> r;
-    for(int i = 0; i < b; i++) cin >> bx[i] >> by[i];
-    for(int i = 0; i < r; i++) cin >> rx[i] >> ry[i];
-
-    for(int i = 0; i < b; i++)
-        for(int j = 0; j < r; j++){
-            di[i][j] = hypot(abs(bx[i]-rx[j]),abs(by[i]-ry[j]));
-            //cout << i <<" " << j << " = " << di[i][j] << endl;
-        }
-
-    double l = 0;
-    double r = 1e9;
-
-    for(int i = 0; i < 60; i++) {
-        double mid = (l+r)/2;
-        if(check(mid)) l = mid;
-        else r = mid;
+    int n; cin >> n;
+    for(int i = 0; i < n; i++) {
+        string s; cin >> s;
+        v.pb(s);
+        id(s);
     }
 
-    cout << fixed << setprecision(6) << l << endl;
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
+            if(hamming(v[i],v[j])==2) {
+                h[id(v[i])].pb(id(v[j]));
+                h[id(v[j])].pb(id(v[i]));
+            }
+
+    for(int i = 0; i < n; i++) {
+        if(!vis[id(v[i])]) bip(id(v[i]),0);
+        if(col[id(v[i])]) add_edge(S,id(v[i]),1);
+        else add_edge(id(v[i]),T,1);
+    }
+
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
+            if(hamming(v[i],v[j])==2) {
+                if(col[id(v[i])]) add_edge(id(v[i]),id(v[j]),1);
+                else add_edge(id(v[j]),id(v[i]),1);
+            }
+
+
+    cout << n-dinic(S,T) << endl;
     return 0;
 }
 

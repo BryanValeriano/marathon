@@ -13,44 +13,28 @@ typedef pair<int,int> ii;
 typedef vector<ii> vii;
 const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
-const int T = 10;
-
-int maxD(int x, int t) {
-    int ans = 0;
-    for(int i = 0; i < t; i++) {
-        if(!(x&(1<<i))) continue;
-        for(int j = 1; j <= t; j++) {
-            int k = (i+j)%t;
-            if(x&(1<<k)) {
-                ans = max(ans,j);
-                break;
-            }
-        }
-    }
-    return ans;
-}
-
-int solve(int dist, int t) {
-    int gol = (1<<t);
-    int ans = 0;
-
-    for(int i = 1; i < gol; i++) {
-        ans += (maxD(i,t) <= dist);
-        //bitset<3> x(i);
-        //cout << i << " | " << x << " = " << maxD(i,t) << endl;
-    }
-
-    return ans;
-}
+const ll MOD = 123456789;
+const int T = 1e6+5;
+ll dp[T];
+ll pref[T];
 
 int main() {
     ios_base::sync_with_stdio(false);
-    for(int i = 1; i <= T; i++) {
-        for(int j = 1; j <= i; j++) {
-            int x = solve(j,i);
-            cout << i << " " << j << " = " << x << endl;
-        }
+    ll n,m;
+    cin >> n >> m;
+    pref[0] = dp[0] = 1;
+
+    for(int i = 1; i < n; i++) {
+        dp[i] = (dp[i]+pref[i-1])%MOD;
+        if(i > m) dp[i] = (dp[i] - pref[i-m-1] + MOD)%MOD;
+        pref[i] = (dp[i] + pref[i-1])%MOD;
     }
+
+    ll ans = 0;
+    for(int i = 1; i <= m; i++)
+        ans = (ans + (dp[n-i]*i)%MOD)%MOD;
+
+    cout << ans << endl;
     return 0;
 }
 

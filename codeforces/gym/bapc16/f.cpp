@@ -98,6 +98,7 @@ int main() {
         cerr << ss[at].name << " = " << i << endl;
         int pos = upper_bound(ss[at].inter.begin(), ss[at].inter.end(), make_pair(cur, INF)) - ss[at].inter.begin() - 1;
         int nxt = pos + (cross(dir, ss[at].dir) < 0 ? -1 : 1);
+        cerr << "from " << pos << " to " << nxt << en
         if (nxt < 0 or nxt > ss[at].inter.size()) {
             cerr << nxt << " " << ss[at].inter.size() << endl;
             cerr << "infinity" << endl;

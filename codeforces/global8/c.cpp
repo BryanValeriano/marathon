@@ -13,23 +13,31 @@ typedef pair<int,int> ii;
 typedef vector<ii> vii;
 const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
-const int T = 4e3+2;
-int t[T], dp[T];
+vii ans;
+
+void build(int x, int y) {
+    ans.eb(x,y);
+    ans.eb(x-1,y);
+    ans.eb(x,y-1);
+}
 
 int main() {
     ios_base::sync_with_stdio(false);
-    memset(dp,INF,sizeof dp);
     int n; cin >> n;
-    dp[0] = 0;
+    ans.eb(0,0);
+    ans.eb(0,1);
+    ans.eb(1,1);
+    ans.eb(1,0);
+    int x = 1, y = 1;
 
-    for(int i = 1; i <= n; i++) {
-        cin >> t[i];
-        for(int k = 1; k <= i; k++)
-            dp[i] = min(dp[i], dp[i-k] + max(t[i]-t[i-k+1]-1800+20,20*k)+120);
-        cout << dp[i] << endl;
+    while(n--) {
+        x++, y++;
+        build(x,y);
     }
 
-    cout << dp[n] << endl;
+    cout << ans.size() << endl;
+    for(ii z : ans) cout << z.fi << " " << z.se << endl;
+
     return 0;
 }
 
