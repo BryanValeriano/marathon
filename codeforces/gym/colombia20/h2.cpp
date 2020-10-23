@@ -15,53 +15,49 @@ const int INF = 0x3f3f3f3f;
 const double PI = acos(-1.0);
 const int T = 2e5+5;
 
-const int p[2] = {31, 47};
-const int m[2] = {1000000009, 1073807359};
+const int p = 31;
+const int m = 1e9 + 9;
 
-ll p_pow[2][T], inv[2][T], h[2][T];
+ll p_pow[T], inv[T], h[T];
 int n, d[T];
 string s;
 
-ll ele(ll b, ll e, ll mod) {
+ll ele(ll b, ll e) {
     ll ans = 1;
     while(e) {
-        if(e&1) ans = (b*ans) % mod;
-        b = (b*b) % mod;
+        if(e&1) ans = (b*ans) % m;
+        b = (b*b) % m;
         e >>= 1;
     }
     return ans;
 }
 
 void pre() {
-    for(int j = 0; j < 2; j++) {
-        p_pow[j][0] = 1;
-        inv[j][0] = ele(p_pow[j][0], m[j]-2,m[j]);
+    p_pow[0] = 1;
+    inv[0] = ele(p_pow[0], m-2);
 
-        for (int i = 1; i < n; i++) {
-            p_pow[j][i] = (p_pow[j][i-1] * p[j]) % m[j];
-            inv[j][i] = ele(p_pow[j][i], m[j]-2,m[j]);
-        }
-
-        for (int i = 1; i < n; i++)
-            h[j][i] = (h[j][i-1] + (s[i] - 'a' + 1) * p_pow[j][i]) % m[j];
+    for (int i = 1; i < n; i++) {
+        p_pow[i] = (p_pow[i-1] * p) % m;
+        inv[i] = ele(p_pow[i], m-2);
     }
+
+    for (int i = 1; i < n; i++)
+        h[i] = (h[i-1] + (s[i] - 'a' + 1) * p_pow[i]) % m;
 }
 
-ii hsh(int a, int b) {
-    ll ok1 = (h[0][b]-h[0][a-1]+m[0])%m[0];
-    ok1 = (ok1 * inv[0][a-1]) % m[0];
-    ll ok2 = (h[1][b]-h[1][a-1]+m[1])%m[1];
-    ok2 = (ok2 * inv[1][a-1]) % m[1];
-    return mk(ok1,ok2);
+int hsh(int a, int b) {
+    ll ok = (h[b]-h[a-1]+m)%m;
+    ok = (ok * inv[a-1]) % m;
+    return ok;
 }
 
 int solve() {
-    set<ii> bag;
+    set<int> bag[n];
 
     for (int i = 0, l = 0, r = -1; i < n; i++) {
         int k = (i > r) ? 1 : min(d[l + r - i], r - i + 1);
         while (0 <= i - k && i + k < n && s[i - k] == s[i + k]) {
-            bag.insert(hsh(i,i+k));
+            bag[k].insert(hsh(i-k,i+k));
             k++;
         }
         d[i] = k--;
@@ -71,7 +67,10 @@ int solve() {
         }
     }
 
-    return bag.size();
+    int ans = 0;
+    for(int i = 1; i < n; i++) ans += bag[i].size();
+
+    return ans;
 }
 
 int main() {
@@ -83,3 +82,4 @@ int main() {
     cout << solve() << endl;
     return 0;
 }
+
