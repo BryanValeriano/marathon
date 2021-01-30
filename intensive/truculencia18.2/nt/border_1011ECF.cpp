@@ -37,7 +37,7 @@ void gen() {
     for(int i : v) {
         if(crivo[i]) continue;
         if(i == 0) { crivo[i] = 0; continue; }
-        for(int j = i; j <= k; j += i) crivo[j] = true; 
+        for(int j = i; j <= k; j += i) crivo[j] = true;
     }
 }
 
