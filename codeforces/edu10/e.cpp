@@ -42,8 +42,6 @@ int main() {
 		edg.eb(a,b);
 	}
 
-
-
     return 0;
 }
 
